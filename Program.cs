@@ -30,7 +30,7 @@ namespace StaffAccounting
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}"
+                pattern: "{controller=Employee}/{action=Index}/{id?}"
             );
 
             app.Run();

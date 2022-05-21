@@ -6,12 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace StaffAccounting.Controllers
 {
-    public class HomeController : Controller
+    public class EmployeeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<EmployeeController> _logger;
         private readonly CompanyContext _companyContext;
 
-        public HomeController(ILogger<HomeController> logger, CompanyContext companyContext)
+        public EmployeeController(ILogger<EmployeeController> logger, CompanyContext companyContext)
         {
             _logger = logger;
             _companyContext = companyContext;
@@ -26,6 +26,18 @@ namespace StaffAccounting.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Employee employee)
+        {
+            return Redirect("Index");
         }
     }
 }
