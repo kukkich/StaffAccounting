@@ -37,6 +37,8 @@ namespace StaffAccounting.Controllers
         [HttpPost]
         public IActionResult Create(Employee employee)
         {
+            if (!ModelState.IsValid)
+                return View(employee);
             return Redirect("Index");
         }
     }
