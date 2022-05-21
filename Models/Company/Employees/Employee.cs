@@ -10,5 +10,7 @@ namespace StaffAccounting.Models.Company
         public string LastName { get; set; } = null!;
         public DateTime Birthday { get; set; }
         public Sex Sex { get; set; }
+
+        public string FullName => $"{LastName} {FirstName} {MiddleName}";
     }
 }

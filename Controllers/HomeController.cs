@@ -2,6 +2,7 @@
 using StaffAccounting.Models;
 using System.Diagnostics;
 using StaffAccounting.Models.Company;
+using Microsoft.EntityFrameworkCore;
 
 namespace StaffAccounting.Controllers
 {
@@ -16,15 +17,9 @@ namespace StaffAccounting.Controllers
             _companyContext = companyContext;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var employees = _companyContext.Employees.ToList();
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            return View(await _companyContext.Employees.ToListAsync());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
