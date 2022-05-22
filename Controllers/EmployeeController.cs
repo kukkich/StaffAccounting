@@ -37,18 +37,22 @@ namespace StaffAccounting.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         
-
-        [Route("Employee/Create/{employeeType}")]
-        public IActionResult Create(string employeeType)
+        [HttpGet]
+        [Route("Employee/Create/{employeeTypeName}")]
+        public IActionResult Create(string employeeTypeName)
         {
-            return View();
+            string employeeClassName = GetEmployeeTypeByAttributeName(employeeTypeName).Name;
+
+            return View("Create" + employeeClassName);
         }
 
         [HttpPost]
-        public IActionResult Create(Employee employee)
+        [Route("Employee/Create/{employeeTypeName}")]
+        public IActionResult Create(Employee employee, string employeeTypeName)
         {
+            string employeeClassName = GetEmployeeTypeByAttributeName(employeeTypeName).Name;
             if (!ModelState.IsValid)
-                return View(employee);
+                return View("Create" + employeeClassName, employee);
 
             return Redirect("Index");
         }
@@ -64,6 +68,14 @@ namespace StaffAccounting.Controllers
         public IActionResult SelectType(string employeeType)
         {
             return Redirect("/Employee/Create/" + System.Net.WebUtility.UrlEncode(employeeType));
+        }
+
+        [NonAction]
+        private Type GetEmployeeTypeByAttributeName(string employeeTypeName)
+        {
+            return employeeTypes.First(type =>
+                    type.GetCustomAttribute<NameAttribute>()?.Name == employeeTypeName
+                    );
         }
     }
 }
