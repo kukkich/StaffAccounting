@@ -1,0 +1,21 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Добавление";
+}
+
+<form asp-action="SelectType" asp-controller="employee">
+    <div class="form-group">
+        <label class="form-label">Тип</label>
+        <select class="form-control" name="employeeType">
+            @foreach (string type in @ViewBag.EmployeeTypes)
+            {
+                <option>@type</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-12">
+        <input type="submit" value="Продолжить" class="btn btn-outline-primary" />
+    </div>
+</form>
+

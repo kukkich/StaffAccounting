@@ -28,11 +28,12 @@
         <label asp-for="Sex" class="form-label">Пол</label>
         <select asp-for="Sex" asp-items="Html.GetEnumSelectList<StaffAccounting.Models.Company.Sex>()"
                 class="form-control">
-            <option selected="selected" value="">Select sex</option>
+            <option selected="selected" value="">Выберите пол</option>
         </select>
         <span asp-validation-for="Sex"></span>
     </div>
+    
     <div class="col-12">
-        <input type="submit" value="Продолжить" class="btn btn-outline-primary" />
+        <input type="submit" value="Добавить" class="btn btn-outline-primary" />
     </div>
 </form>

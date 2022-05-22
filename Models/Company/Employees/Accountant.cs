@@ -3,6 +3,7 @@
 namespace StaffAccounting.Models.Company
 {
     [Table("Accountants")]
+    [Name("Бухгалтер")]
     public class Accountant : Employee
     {
         public int DirectorId { get; set; }
