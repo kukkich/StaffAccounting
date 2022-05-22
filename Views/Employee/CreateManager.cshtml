@@ -1,0 +1,14 @@
+﻿@model StaffAccounting.Models.Company.EmployeeCreationModel
+@{
+    ViewData["Title"] = "Добавление менеджера";
+    Layout = "_CreateMaster";
+}
+<div class="form-group">
+    <label asp-for="DepartmentHead" class="control-label">Глава Департамента</label>
+    <input type="text" asp-for="DepartmentHead" class="form-control" />
+</div>
+
+<div class="form-group">
+    <label asp-for="Project" class="control-label">Проект</label>
+    <input type="text" asp-for="Project" class="form-control" />
+</div>

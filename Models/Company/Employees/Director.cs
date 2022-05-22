@@ -8,5 +8,11 @@ namespace StaffAccounting.Models.Company
     {
         public List<Accountant> Accountants { get; set; } = new();
         public List<DepartmentHead> DepartamentHeads { get; set; } = new();
+
+        public Director () { }
+
+        public Director(EmployeeCreationModel model) 
+            : base(model)
+        { }
     }
 }

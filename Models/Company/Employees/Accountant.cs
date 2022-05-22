@@ -7,6 +7,15 @@ namespace StaffAccounting.Models.Company
     public class Accountant : Employee
     {
         public int DirectorId { get; set; }
-        public Director? Director { get; set; }
+        public Director Director { get; set; }
+
+        public Accountant() { }
+
+
+        public Accountant (EmployeeCreationModel model)
+            :base(model)
+        {
+            Director = model.Director;
+        }
     }
 }

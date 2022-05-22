@@ -23,7 +23,6 @@ namespace StaffAccounting.Controllers
                     type.IsSubclassOf(typeof(Employee)) && 
                     type.GetCustomAttribute<NameAttribute>() != null
                 );
-            
         }
 
         public async Task<IActionResult> Index()
@@ -48,11 +47,11 @@ namespace StaffAccounting.Controllers
 
         [HttpPost]
         [Route("Employee/Create/{employeeTypeName}")]
-        public IActionResult Create(Employee employee, string employeeTypeName)
+        public IActionResult Create(EmployeeCreationModel employeeModel, string employeeTypeName)
         {
             string employeeClassName = GetEmployeeTypeByAttributeName(employeeTypeName).Name;
             if (!ModelState.IsValid)
-                return View("Create" + employeeClassName, employee);
+                return View("Create" + employeeClassName, employeeModel);
 
             return Redirect("Index");
         }

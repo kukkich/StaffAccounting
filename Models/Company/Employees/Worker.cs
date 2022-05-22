@@ -7,9 +7,18 @@ namespace StaffAccounting.Models.Company
     public class Worker : Employee
     {
         public int ManagerId { get; set; }
-        public Manager? Manager { get; set; }
+        public Manager Manager { get; set; }
 
         public int RankId { get; set; }
-        public Rank? Rank { get; set; }
+        public Rank Rank { get; set; }
+
+        public Worker() { }
+
+        public Worker(EmployeeCreationModel model) 
+            : base(model)
+        {
+            Manager = model.Manager;
+            Rank = model.Rank;
+        }
     }
 }
