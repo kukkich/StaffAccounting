@@ -80,8 +80,9 @@ namespace StaffAccounting.Controllers
         [NonAction]
         private Type GetEmployeeTypeByAttributeName(string employeeTypeName)
         {
+            string decodedTypeName = System.Net.WebUtility.UrlDecode(employeeTypeName);
             return employeeTypes.First(type =>
-                    type.GetCustomAttribute<NameAttribute>()?.Name == employeeTypeName
+                    type.GetCustomAttribute<NameAttribute>()?.Name == decodedTypeName
                    );
         }
     }

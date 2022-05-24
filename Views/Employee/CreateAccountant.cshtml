@@ -1,11 +1,8 @@
 ﻿@using StaffAccounting.Models.Company
 @model EmployeeCreationModel
 @{
-    ViewData["Title"] = "Добавление менеджера";
+    ViewData["Title"] = "Добавление бухгалтера";
     Layout = "_CreateTemplate";
-    IOrderedQueryable<Project> orderedProjects = 
-        ((IQueryable<Project>)ViewBag.Company.Projects)
-        .OrderBy(project => project.Name);
     IOrderedQueryable<Director> orderedDirectors = 
         ((IQueryable<Director>)ViewBag.Company.Directors)
         .OrderBy(director => director.LastName);
