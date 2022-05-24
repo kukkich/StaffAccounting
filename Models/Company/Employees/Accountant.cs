@@ -11,7 +11,6 @@ namespace StaffAccounting.Models.Company
 
         public Accountant() { }
 
-
         public Accountant (EmployeeCreationModel model)
             :base(model)
         {
@@ -19,3 +18,5 @@ namespace StaffAccounting.Models.Company
         }
     }
 }
+
+
