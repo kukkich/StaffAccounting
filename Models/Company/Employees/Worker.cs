@@ -17,8 +17,8 @@ namespace StaffAccounting.Models.Company
         public Worker(EmployeeCreationModel model) 
             : base(model)
         {
-            Manager = model.Manager;
-            Rank = model.Rank;
+            ManagerId = model.ManagerId;
+            RankId = model.RankId;
         }
     }
 }

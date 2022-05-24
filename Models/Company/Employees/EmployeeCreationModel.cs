@@ -15,11 +15,11 @@ namespace StaffAccounting.Models.Company
         [Required(ErrorMessage = "Выберите пол")]
         public Sex Sex { get; set; }
 
-        public Director Director { get; set; }
-        public Department Department { get; set; }
-        public Project Project { get; set; }
-        public DepartmentHead DepartmentHead { get; set; }
-        public Rank Rank { get; set; }
-        public Manager Manager { get; set; }
+        public int DirectorId { get; set; }
+        public int DepartmentId { get; set; }
+        public int ProjectId { get; set; }
+        public int DepartmentHeadId { get; set; }
+        public int RankId { get; set; }
+        public int ManagerId { get; set; }
     }
 }

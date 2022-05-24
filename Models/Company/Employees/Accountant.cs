@@ -15,7 +15,7 @@ namespace StaffAccounting.Models.Company
         public Accountant (EmployeeCreationModel model)
             :base(model)
         {
-            Director = model.Director;
+            DirectorId = model.DirectorId;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace StaffAccounting.Models.Company
         protected Employee (EmployeeCreationModel model)
         {
             FirstName = model.FirstName;
-            MiddleName = model.LastName;
+            MiddleName = model.MiddleName;
             LastName = model.LastName;
             Birthday = model.Birthday;
             Sex = model.Sex;

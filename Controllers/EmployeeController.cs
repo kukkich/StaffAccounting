@@ -37,23 +37,31 @@ namespace StaffAccounting.Controllers
         }
         
         [HttpGet]
-        [Route("Employee/Create/{employeeTypeName}")]
-        public IActionResult Create(string employeeTypeName)
+        [Route("Employee/Create/{employeeAttributeName}")]
+        public IActionResult Create(string employeeAttributeName)
         {
-            string employeeClassName = GetEmployeeTypeByAttributeName(employeeTypeName).Name;
-
+            string employeeClassName = GetEmployeeTypeByAttributeName(employeeAttributeName).Name;
+            ViewBag.Company = _companyContext;
             return View("Create" + employeeClassName);
         }
 
         [HttpPost]
-        [Route("Employee/Create/{employeeTypeName}")]
-        public IActionResult Create(EmployeeCreationModel employeeModel, string employeeTypeName)
+        [Route("Employee/Create/{employeeAttributeName}")]
+        public IActionResult Create(EmployeeCreationModel employeeModel, string employeeAttributeName)
         {
-            string employeeClassName = GetEmployeeTypeByAttributeName(employeeTypeName).Name;
+            Type employeeType = GetEmployeeTypeByAttributeName(employeeAttributeName);
+            ViewBag.Company = _companyContext;
             if (!ModelState.IsValid)
-                return View("Create" + employeeClassName, employeeModel);
+                return View("Create" + employeeType.Name, employeeModel);
 
-            return Redirect("Index");
+            var constuructor = employeeType.GetConstructors()
+                .First(ctor => ctor.GetParameters().Length == 1);
+
+            Employee newEmployee = (Employee)constuructor.Invoke(new object[] { employeeModel });
+            _companyContext.Employees.Add(newEmployee);
+
+            _companyContext.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         public IActionResult SelectType()
@@ -74,7 +82,7 @@ namespace StaffAccounting.Controllers
         {
             return employeeTypes.First(type =>
                     type.GetCustomAttribute<NameAttribute>()?.Name == employeeTypeName
-                    );
+                   );
         }
     }
 }

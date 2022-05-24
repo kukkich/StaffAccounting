@@ -19,8 +19,8 @@ namespace StaffAccounting.Models.Company
         public Manager(EmployeeCreationModel model)
             : base(model)
         {
-            DepartmentHead = model.DepartmentHead;
-            Project = model.Project;
+            DepartmentHeadId = model.DepartmentHeadId;
+            ProjectId = model.ProjectId;
         }
     }
 }
