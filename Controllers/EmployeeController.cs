@@ -4,6 +4,7 @@ using System.Diagnostics;
 using StaffAccounting.Models.Company;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using StaffAccounting.Extensions;
 
 namespace StaffAccounting.Controllers
 {
@@ -11,18 +12,13 @@ namespace StaffAccounting.Controllers
     {
         private readonly ILogger<EmployeeController> _logger;
         private readonly CompanyContext _companyContext;
-        private readonly IEnumerable<Type> employeeTypes;
+        private readonly EmployeeTypesProvider _typesProvider;
 
         public EmployeeController(ILogger<EmployeeController> logger, CompanyContext companyContext)
         {
             _logger = logger;
             _companyContext = companyContext;
-
-            employeeTypes = Assembly.GetAssembly(typeof(Employee))?.GetTypes()
-                .Where(type => 
-                    type.IsSubclassOf(typeof(Employee)) && 
-                    type.GetCustomAttribute<NameAttribute>() != null
-                );
+            _typesProvider = new EmployeeTypesProvider();
         }
 
         public async Task<IActionResult> Index()
@@ -38,26 +34,25 @@ namespace StaffAccounting.Controllers
         
         [HttpGet]
         [Route("Employee/Create/{employeeAttributeName}")]
-        public IActionResult Create(string employeeAttributeName)
+        public IActionResult Create(string employeeNotation)
         {
-            string employeeClassName = GetEmployeeTypeByAttributeName(employeeAttributeName).Name;
+            string employeeClassName = _typesProvider.GetClassNameByNotation(employeeNotation.DecodeAsUrl());
             ViewBag.Company = _companyContext;
             return View("Create" + employeeClassName);
         }
 
         [HttpPost]
         [Route("Employee/Create/{employeeAttributeName}")]
-        public IActionResult Create(EmployeeCreationModel employeeModel, string employeeAttributeName)
+        public IActionResult Create(EmployeeCreationModel employeeModel, string employeeNotation)
         {
-            Type employeeType = GetEmployeeTypeByAttributeName(employeeAttributeName);
+            Type employeeType = _typesProvider.GetTybeByNotation(employeeNotation.DecodeAsUrl());
+
             ViewBag.Company = _companyContext;
             if (!ModelState.IsValid)
                 return View("Create" + employeeType.Name, employeeModel);
 
-            var constuructor = employeeType.GetConstructors()
-                .First(ctor => ctor.GetParameters().Length == 1);
-
-            Employee newEmployee = (Employee)constuructor.Invoke(new object[] { employeeModel });
+            Employee newEmployee = _typesProvider.CreateEmployee(employeeType, employeeModel);
+            
             _companyContext.Employees.Add(newEmployee);
 
             _companyContext.SaveChanges();
@@ -66,24 +61,15 @@ namespace StaffAccounting.Controllers
 
         public IActionResult SelectType()
         {
-            List<string> types = employeeTypes.Select(employeeType => employeeType.GetCustomAttribute<NameAttribute>().Name).ToList();
-            ViewBag.EmployeeTypes = types;
+            List<string> notations = _typesProvider.GetNotations().ToList();
+            ViewBag.EmployeeTypeNames = notations;
             return View();
         }
 
         [HttpPost]
         public IActionResult SelectType(string employeeType)
         {
-            return Redirect("/Employee/Create/" + System.Net.WebUtility.UrlEncode(employeeType));
-        }
-
-        [NonAction]
-        private Type GetEmployeeTypeByAttributeName(string employeeTypeName)
-        {
-            string decodedTypeName = System.Net.WebUtility.UrlDecode(employeeTypeName);
-            return employeeTypes.First(type =>
-                    type.GetCustomAttribute<NameAttribute>()?.Name == decodedTypeName
-                   );
+            return Redirect("/Employee/Create/" + employeeType.EncodeAsUrl());
         }
     }
 }
