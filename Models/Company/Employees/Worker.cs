@@ -3,7 +3,7 @@
 namespace StaffAccounting.Models.Company
 {
     [Table("Workers")]
-    [Name("Рабочий")]
+    [Notation("Рабочий")]
     public class Worker : Employee
     {
         public int ManagerId { get; set; }

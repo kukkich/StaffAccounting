@@ -3,7 +3,7 @@
 namespace StaffAccounting.Models.Company
 {
     [Table("Directors")]
-    [Name("Директор")]
+    [Notation("Директор")]
     public class Director : Employee
     {
         public List<Accountant> Accountants { get; set; } = new();

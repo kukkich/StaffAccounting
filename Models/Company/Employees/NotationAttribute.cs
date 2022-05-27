@@ -1,10 +1,10 @@
 ﻿namespace StaffAccounting.Models.Company
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class NameAttribute : Attribute
+    public class NotationAttribute : Attribute
     {
         public readonly string Name;
-        public NameAttribute(string name)
+        public NotationAttribute(string name)
         {
             Name = name;
         }
