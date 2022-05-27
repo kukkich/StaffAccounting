@@ -17,6 +17,9 @@
             <td>@employee.FullName</td>
             <td>@employee.Birthday</td>
             <td>@employee.Sex</td>
+            <td>
+                <a asp-action="Details" asp-controller="Employee" asp-route-id="@employee.Id">Подробнее</a> |
+            </td>
         </tr>
     }
 </table>
