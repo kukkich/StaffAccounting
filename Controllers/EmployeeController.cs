@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using StaffAccounting.Extensions;
 using System.Threading.Tasks;
+using StaffAccounting.Models.VieweProviders;
 
 namespace StaffAccounting.Controllers
 {
@@ -14,9 +15,11 @@ namespace StaffAccounting.Controllers
         private readonly ILogger<EmployeeController> _logger;
         private readonly CompanyContext _companyContext;
         private readonly EmployeeNotationFactory _factory;
-
+        private readonly IViewProvider _viewProvider;
+        
         public EmployeeController(ILogger<EmployeeController> logger, CompanyContext companyContext)
         {
+            _viewProvider = new ViewProvider();
             _logger = logger;
             _companyContext = companyContext;
             _factory = new EmployeeNotationFactory();
@@ -34,7 +37,7 @@ namespace StaffAccounting.Controllers
         }
         
         [HttpGet]
-        [Route("Employee/Create/{employeeAttributeName}")]
+        [Route("Employee/Create/{employeeNotation}")]
         public IActionResult Create(string employeeNotation)
         {
             string employeeClassName = _factory.GetClassName(employeeNotation.DecodeAsUrl());
@@ -43,7 +46,7 @@ namespace StaffAccounting.Controllers
         }
 
         [HttpPost]
-        [Route("Employee/Create/{employeeAttributeName}")]
+        [Route("Employee/Create/{employeeNotation}")]
         public IActionResult Create(EmployeeCreationModel employeeModel, string employeeNotation)
         {
             Type employeeType = _factory.GetTybeByNotation(employeeNotation.DecodeAsUrl());
@@ -81,7 +84,8 @@ namespace StaffAccounting.Controllers
                 Employee employee = await _companyContext.Employees.FirstOrDefaultAsync(employee => employee.Id == id);
                 if (employee != null)
                 {
-                    return View(_factory.GetClassName(employee), employee);
+                    ViewResult view = employee.GetView(_viewProvider, HTTPActions.Read);
+                    return view;
                 }
             }
 

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Mvc;
+using StaffAccounting.Models.VieweProviders;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StaffAccounting.Models.Company
 {
@@ -21,6 +23,11 @@ namespace StaffAccounting.Models.Company
         {
             DepartmentHeadId = model.DepartmentHeadId;
             ProjectId = model.ProjectId;
+        }
+
+        public override ViewResult GetView(IViewProvider viewProvider, HTTPActions action)
+        {
+            return viewProvider.Manager(this, action);
         }
     }
 }

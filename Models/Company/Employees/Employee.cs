@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using StaffAccounting.Models.VieweProviders;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace StaffAccounting.Models.Company
 {
-    public abstract class Employee
+    public abstract class Employee : ICRUDViewable
     {
         public int Id { get; set; }
         public string FirstName { get; set; } = null!;
@@ -23,5 +25,7 @@ namespace StaffAccounting.Models.Company
             Birthday = model.Birthday;
             Sex = model.Sex;
         }
+
+        public abstract ViewResult GetView(IViewProvider viewProvider, HTTPActions action);
     }
 }
