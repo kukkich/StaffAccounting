@@ -18,9 +18,9 @@ namespace StaffAccounting.Models.Company
         public CompanyContext(DbContextOptions<CompanyContext> options)
             : base(options)
         {
-            Database.EnsureDeleted();
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
-            FillDataBase();
+            //FillDataBase();
         }
 
         private void FillDataBase()

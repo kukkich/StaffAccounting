@@ -1,0 +1,32 @@
+﻿@using StaffAccounting.Models.Company
+@model EmployeeCreationModel
+@{
+    ViewData["Title"] = "Добавление работника";
+    Layout = "_CreateTemplate";
+    IOrderedQueryable<Rank> orderedRank = 
+        ((IQueryable<Rank>)ViewBag.Company.Ranks)
+        .OrderBy(rank => rank.Name);
+    IOrderedQueryable<Manager> orderedManagers = 
+        ((IQueryable<Manager>)ViewBag.Company.Managers)
+        .OrderBy(manager => manager.LastName);
+}
+
+<div class="form-group">
+    <label asp-for="RankId" class="control-label">Должность</label>
+    <select id="RankId" asp-for="RankId" class="form-control">
+        @foreach (Rank rank in orderedRank)
+        {
+            <option value=@rank.Id>@rank.Name</option>
+        }
+    </select>
+</div>
+
+<div class="form-group">
+    <label asp-for="ManagerId" class="control-label">Директор</label>
+    <select id="ManagerId" asp-for="ManagerId" class="form-control">
+        @foreach (Manager manager in orderedManagers)
+        {
+            <option value=@manager.Id>@manager.FullName</option>
+        }
+    </select>
+</div>

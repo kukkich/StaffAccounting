@@ -1,0 +1,19 @@
+﻿@using StaffAccounting.Models.Company
+@model EmployeeCreationModel
+@{
+    ViewData["Title"] = "Добавление бухгалтера";
+    Layout = "_CreateTemplate";
+    IOrderedQueryable<Director> orderedDirectors = 
+        ((IQueryable<Director>)ViewBag.Company.Directors)
+        .OrderBy(director => director.LastName);
+}
+
+<div class="form-group">
+    <label asp-for="DirectorId" class="control-label">Директор</label>
+    <select id="DepartmentHeadId" asp-for="DirectorId" class="form-control">
+        @foreach (Director director in orderedDirectors)
+        {
+            <option value=@director.Id>@director.FullName</option>
+        }
+    </select>
+</div>
