@@ -12,13 +12,13 @@ namespace StaffAccounting.Controllers
     {
         private readonly ILogger<EmployeeController> _logger;
         private readonly CompanyContext _companyContext;
-        private readonly EmployeeTypesProvider _typesProvider;
+        private readonly EmployeeNotationFactory _typesProvider;
 
         public EmployeeController(ILogger<EmployeeController> logger, CompanyContext companyContext)
         {
             _logger = logger;
             _companyContext = companyContext;
-            _typesProvider = new EmployeeTypesProvider();
+            _typesProvider = new EmployeeNotationFactory();
         }
 
         public async Task<IActionResult> Index()

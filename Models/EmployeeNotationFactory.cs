@@ -3,11 +3,11 @@ using System.Reflection;
 
 namespace StaffAccounting.Models
 {
-    public class EmployeeTypesProvider
+    public class EmployeeNotationFactory
     {
         private readonly IEnumerable<Type> _employeeTypes;
 
-        public EmployeeTypesProvider()
+        public EmployeeNotationFactory()
         {
             _employeeTypes = Assembly.GetAssembly(typeof(Employee))?.GetTypes()
                 .Where(type =>
