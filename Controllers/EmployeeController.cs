@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using StaffAccounting.Extensions;
 using System.Threading.Tasks;
+using StaffAccounting.Models.VieweProviders;
 
 namespace StaffAccounting.Controllers
 {
@@ -14,9 +15,11 @@ namespace StaffAccounting.Controllers
         private readonly ILogger<EmployeeController> _logger;
         private readonly CompanyContext _companyContext;
         private readonly EmployeeNotationFactory _factory;
+        private readonly IViewProvider _viewProvider;
 
         public EmployeeController(ILogger<EmployeeController> logger, CompanyContext companyContext)
         {
+            _viewProvider = new ViewProvider();
             _logger = logger;
             _companyContext = companyContext;
             _factory = new EmployeeNotationFactory();
@@ -24,7 +27,8 @@ namespace StaffAccounting.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _companyContext.Employees.ToListAsync());
+            var employees = await _companyContext.Employees.ToListAsync();
+            return View(employees);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -32,9 +36,9 @@ namespace StaffAccounting.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        
+
         [HttpGet]
-        [Route("Employee/Create/{employeeAttributeName}")]
+        [Route("Employee/Create/{employeeNotation}")]
         public IActionResult Create(string employeeNotation)
         {
             string employeeClassName = _factory.GetClassName(employeeNotation.DecodeAsUrl());
@@ -43,7 +47,7 @@ namespace StaffAccounting.Controllers
         }
 
         [HttpPost]
-        [Route("Employee/Create/{employeeAttributeName}")]
+        [Route("Employee/Create/{employeeNotation}")]
         public IActionResult Create(EmployeeCreationModel employeeModel, string employeeNotation)
         {
             Type employeeType = _factory.GetTybeByNotation(employeeNotation.DecodeAsUrl());
@@ -53,7 +57,7 @@ namespace StaffAccounting.Controllers
                 return View("Create" + employeeType.Name, employeeModel);
 
             Employee newEmployee = _factory.CreateEmployee(employeeType, employeeModel);
-            
+
             _companyContext.Employees.Add(newEmployee);
 
             _companyContext.SaveChanges();
@@ -78,10 +82,15 @@ namespace StaffAccounting.Controllers
         {
             if (id != null)
             {
-                Employee employee = await _companyContext.Employees.FirstOrDefaultAsync(employee => employee.Id == id);
+                Employee employee = (await _companyContext.Employees
+                    .ToListAsync())
+                    .FirstOrDefault(employee => employee.Id == id);
+
                 if (employee != null)
                 {
-                    return View(_factory.GetClassName(employee), employee);
+                    employee.JoinFromDatabase(_companyContext);
+                    ViewResult view = employee.GetView(_viewProvider, HTTPActions.Read);
+                    return view;
                 }
             }
 

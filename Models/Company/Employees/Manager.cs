@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Mvc;
+using StaffAccounting.Models.VieweProviders;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StaffAccounting.Models.Company
 {
@@ -21,6 +23,17 @@ namespace StaffAccounting.Models.Company
         {
             DepartmentHeadId = model.DepartmentHeadId;
             ProjectId = model.ProjectId;
+        }
+
+        public override ViewResult GetView(IViewProvider viewProvider, HTTPActions action)
+        {
+            return viewProvider.Manager(this, action);
+        }
+
+        public override void JoinFromDatabase(CompanyContext context)
+        {
+            Project = context.Projects.FirstOrDefault(project => project.Id == ProjectId);
+            DepartmentHead = context.DepartmentHeads.FirstOrDefault(departmentHead => departmentHead.Id == DepartmentHeadId);
         }
     }
 }

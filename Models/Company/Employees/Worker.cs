@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Mvc;
+using StaffAccounting.Models.VieweProviders;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StaffAccounting.Models.Company
 {
@@ -19,6 +21,17 @@ namespace StaffAccounting.Models.Company
         {
             ManagerId = model.ManagerId;
             RankId = model.RankId;
+        }
+
+        public override ViewResult GetView(IViewProvider viewProvider, HTTPActions action)
+        {
+            return viewProvider.Worker(this, action);
+        }
+
+        public override void JoinFromDatabase(CompanyContext context)
+        {
+            Manager = context.Managers.FirstOrDefault(manager => manager.Id == ManagerId);
+            Rank = context.Ranks.FirstOrDefault(rank => rank.Id == RankId);
         }
     }
 }
