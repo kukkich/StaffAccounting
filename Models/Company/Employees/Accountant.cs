@@ -23,6 +23,11 @@ namespace StaffAccounting.Models.Company
         {
             return viewProvider.Accountant(this, action);
         }
+
+        public override void JoinFromDatabase(CompanyContext context)
+        {
+            Director = context.Directors.FirstOrDefault(director => director.Id == DirectorId);
+        }
     }
 }
 

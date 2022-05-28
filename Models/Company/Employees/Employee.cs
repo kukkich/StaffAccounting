@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StaffAccounting.Models.Company
 {
-    public abstract class Employee : ICRUDViewable
+    public abstract class Employee : ICRUDViewable, IDataJoinable
     {
         public int Id { get; set; }
         public string FirstName { get; set; } = null!;
@@ -27,5 +27,6 @@ namespace StaffAccounting.Models.Company
         }
 
         public abstract ViewResult GetView(IViewProvider viewProvider, HTTPActions action);
+        public abstract void JoinFromDatabase(CompanyContext context);
     }
 }

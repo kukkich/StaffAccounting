@@ -29,5 +29,11 @@ namespace StaffAccounting.Models.Company
         {
             return viewProvider.Manager(this, action);
         }
+
+        public override void JoinFromDatabase(CompanyContext context)
+        {
+            Project = context.Projects.FirstOrDefault(project => project.Id == ProjectId);
+            DepartmentHead = context.DepartmentHeads.FirstOrDefault(departmentHead => departmentHead.Id == DepartmentHeadId);
+        }
     }
 }

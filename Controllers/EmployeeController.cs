@@ -16,7 +16,7 @@ namespace StaffAccounting.Controllers
         private readonly CompanyContext _companyContext;
         private readonly EmployeeNotationFactory _factory;
         private readonly IViewProvider _viewProvider;
-        
+
         public EmployeeController(ILogger<EmployeeController> logger, CompanyContext companyContext)
         {
             _viewProvider = new ViewProvider();
@@ -27,7 +27,8 @@ namespace StaffAccounting.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _companyContext.Employees.ToListAsync());
+            var employees = await _companyContext.Employees.ToListAsync();
+            return View(employees);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -35,7 +36,7 @@ namespace StaffAccounting.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        
+
         [HttpGet]
         [Route("Employee/Create/{employeeNotation}")]
         public IActionResult Create(string employeeNotation)
@@ -56,7 +57,7 @@ namespace StaffAccounting.Controllers
                 return View("Create" + employeeType.Name, employeeModel);
 
             Employee newEmployee = _factory.CreateEmployee(employeeType, employeeModel);
-            
+
             _companyContext.Employees.Add(newEmployee);
 
             _companyContext.SaveChanges();
@@ -81,9 +82,13 @@ namespace StaffAccounting.Controllers
         {
             if (id != null)
             {
-                Employee employee = await _companyContext.Employees.FirstOrDefaultAsync(employee => employee.Id == id);
+                Employee employee = (await _companyContext.Employees
+                    .ToListAsync())
+                    .FirstOrDefault(employee => employee.Id == id);
+
                 if (employee != null)
                 {
+                    employee.JoinFromDatabase(_companyContext);
                     ViewResult view = employee.GetView(_viewProvider, HTTPActions.Read);
                     return view;
                 }

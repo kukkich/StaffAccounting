@@ -27,5 +27,11 @@ namespace StaffAccounting.Models.Company
         {
             return viewProvider.Worker(this, action);
         }
+
+        public override void JoinFromDatabase(CompanyContext context)
+        {
+            Manager = context.Managers.FirstOrDefault(manager => manager.Id == ManagerId);
+            Rank = context.Ranks.FirstOrDefault(rank => rank.Id == RankId);
+        }
     }
 }

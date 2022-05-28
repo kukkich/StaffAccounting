@@ -6,7 +6,6 @@ namespace StaffAccounting.Models.VieweProviders
     [NonController]
     public class ViewProvider : Controller, IViewProvider
     {
-        private const string ViewPath = "Views";
         private readonly Dictionary<HTTPActions, string> _pathsByHttpAction = new Dictionary<HTTPActions, string>
         {
             [HTTPActions.Read] = "Details",
@@ -17,27 +16,27 @@ namespace StaffAccounting.Models.VieweProviders
 
         public ViewResult Accountant(Accountant accountant, HTTPActions action)
         {
-            return View(GetViewPath(nameof(Accountant), action));
+            return View(GetViewPath(nameof(Accountant), action), accountant);
         }
 
         public ViewResult DepartmentHead(DepartmentHead head, HTTPActions action)
         {
-            return View(GetViewPath(nameof(DepartmentHead), action));
+            return View(GetViewPath(nameof(DepartmentHead), action), head);
         }
 
         public ViewResult Director(Director director, HTTPActions action)
         {
-            return View(GetViewPath(nameof(Director), action));
+            return View(GetViewPath(nameof(Director), action), director);
         }
 
         public ViewResult Manager(Manager manager, HTTPActions action)
         {
-            return View(GetViewPath(nameof(Manager), action));
+            return View(GetViewPath(nameof(Manager), action), manager);
         }
 
         public ViewResult Worker(Worker worker, HTTPActions action)
         {
-            return View(GetViewPath(nameof(Worker), action));
+            return View(GetViewPath(nameof(Worker), action), worker);
         }
 
         private string GetViewPath(string viewName, HTTPActions actions) =>

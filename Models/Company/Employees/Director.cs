@@ -21,5 +21,7 @@ namespace StaffAccounting.Models.Company
         {
             return viewProvider.Director(this, action);
         }
+
+        public override void JoinFromDatabase(CompanyContext context) {}
     }
 }
