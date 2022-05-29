@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Департаменты";
+}
+@model IEnumerable<StaffAccounting.Models.Company.Department>
+
+<table class="table">
+    <tr>
+        <td>Имя</td>
+        <td>Действия</td>
+    </tr>
+    @foreach (var department in Model)
+    {
+        <tr>
+            <td>@department.Name</td>
+            <td>
+                <a asp-action="Details" asp-controller="Department" asp-route-id="@department.Id">Подробнее</a> |
+            </td>
+        </tr>
+    }
+</table>

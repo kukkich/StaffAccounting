@@ -1,0 +1,23 @@
+﻿@model StaffAccounting.Models.Company.Rank
+
+<h1>@Model.Name</h1>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>Рабочие с данной должностью</dt>
+        <dd>
+            <div class="items-collection">
+                @{
+                    int workersCount = Model.Workers.Count();
+                }
+                @for (int workersNumber = 0; workersNumber < workersCount; workersNumber++)
+                {
+                    <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.Workers[workersNumber].Id">
+                        @(workersNumber+1). @Model.Workers[workersNumber].FullName
+                    </a>
+                    <br />
+                }
+            </div>
+        </dd>
+    </dl>
+</div>
