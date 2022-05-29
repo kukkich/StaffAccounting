@@ -1,0 +1,23 @@
+﻿@model StaffAccounting.Models.Company.Department
+
+<h1>@Model.Name</h1>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>Главы данного департамента</dt>
+        <dd>
+            <div class="items-collection">
+                @{
+                    int headsCount = Model.Heads.Count();
+                }
+                @for (int headsNumber = 0; headsNumber < headsCount; headsNumber++)
+                {
+                    <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.Heads[headsNumber].Id">
+                        @(headsNumber+1). @Model.Heads[headsNumber].FullName
+                    </a>
+                    <br />
+                }
+            </div>
+        </dd>
+    </dl>
+</div>

@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Mvc;
+using StaffAccounting.Models.VieweProviders;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StaffAccounting.Models.Company
 {
     [Table("DepartmentHeads")]
     [Notation("Глава департамента")]
-    public class DepartmentHead : Employee
+    public class DepartmentHead : Employee, IDataJoinable
     {
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
@@ -21,6 +23,17 @@ namespace StaffAccounting.Models.Company
         {
             DepartmentId = model.DepartmentId;
             DirectorId = model.DirectorId;
+        }
+
+        public override ViewResult GetView(IViewProvider viewProvider, HTTPActions action)
+        {
+            return viewProvider.DepartmentHead(this, action);
+        }
+
+        public override void JoinFromDatabase(CompanyContext context)
+        {
+            Department = context.Departments.FirstOrDefault(department => department.Id == DepartmentId);
+            Director = context.Directors.FirstOrDefault(department => department.Id == DirectorId);
         }
     }
 }

@@ -5,6 +5,9 @@ namespace StaffAccounting.Models
 {
     public class EmployeeNotationFactory
     {
+        public IEnumerable<string> Notations => _employeeTypes
+            .Select(type => type.GetCustomAttribute<NotationAttribute>().Name);
+
         private readonly IEnumerable<Type> _employeeTypes;
 
         public EmployeeNotationFactory()
@@ -27,15 +30,16 @@ namespace StaffAccounting.Models
             return (Employee)constuructor.Invoke(new object[] { creationModel });
         }
 
-        public IEnumerable<string> GetNotations() => 
-            _employeeTypes.Select(type => type.GetCustomAttribute<NotationAttribute>().Name);
-
         public Type GetTybeByNotation(string notation) =>
             _employeeTypes.First(type =>
                     type.GetCustomAttribute<NotationAttribute>()?.Name == notation
                    );
 
-        public string GetClassNameByNotation(string attributeName) =>
-            GetTybeByNotation(attributeName).Name;
+        public string GetClassName(string notation) =>
+            GetTybeByNotation(notation).Name;
+
+        public string GetClassName(Employee employee) =>
+            employee.GetType().Name;
+
     }
 }
