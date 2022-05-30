@@ -7,7 +7,7 @@
 <div>
     <dl class="dl-horizontal">
         <dt>Возраст</dt>
-        <dd>@Math.Floor((double)(Model.Birthday.Year - DateTime.Now.Year))</dd>
+        <dd>@Math.Floor((double)(DateTime.Now.Year - Model.Birthday.Year))</dd>
 
         <dt>Пол</dt>
         <dd>@Model.Sex</dd>
