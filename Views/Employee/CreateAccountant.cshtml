@@ -3,9 +3,9 @@
 @{
     ViewData["Title"] = "Добавление бухгалтера";
     Layout = "_CreateTemplate";
-    IOrderedQueryable<Director> orderedDirectors = 
+    IEnumerable<Director> orderedDirectors = 
         ((IQueryable<Director>)ViewBag.Company.Directors)
-        .OrderBy(director => director.LastName);
+        .OrderBy(director => director.LastName).ToList();
 }
 
 <div class="form-group">

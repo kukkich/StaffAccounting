@@ -20,6 +20,7 @@
             <td>@employee.Sex</td>
             <td>
                 <a asp-action="Details" asp-controller="Employee" asp-route-id="@employee.Id">Подробнее</a> |
+                <a asp-action="Edit" asp-controller="Employee" asp-route-id="@employee.Id">Изменить</a> |
             </td>
         </tr>
     }
