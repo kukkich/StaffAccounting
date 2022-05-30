@@ -1,0 +1,30 @@
+﻿@using StaffAccounting.Models.Company
+@model Accountant
+@{
+    IEnumerable<Director> orderedDirectors = 
+        ((IQueryable<Director>)((CompanyContext)ViewData["Company"]).Directors)
+        .OrderBy(director => director.LastName).ToList();
+}
+
+<h2>Бухгалтер</h2>
+
+<form asp-action="EditAccountant" asp-controller="Employee" asp-route-id="@Model.Id">
+    @await Html.PartialAsync("Edit/Employee", Model)
+
+    <div class="form-group">
+        <label asp-for="DirectorId" class="control-label">Директор</label>
+        <select id="DepartmentHeadId" asp-for="DirectorId" class="form-control">
+            <option selected="selected" value=@Model.DirectorId>@Model.Director.FullName</option>
+            @foreach (Director director in orderedDirectors)
+            {
+                if (director.Id != Model.DirectorId)
+                {
+                    <option value=@director.Id>@director.FullName</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="col-12">
+        <input type="submit" value="Сохранить" class="btn btn-outline-primary" />
+    </div>
+</form>

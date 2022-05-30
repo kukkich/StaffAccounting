@@ -3,7 +3,7 @@ using StaffAccounting.Models.Company;
 
 namespace StaffAccounting.Models.VieweProviders
 {
-    public interface ICRUDViewable
+    public interface IViewable
     {
         public ViewResult GetView(IViewProvider viewProvider, HTTPActions action);
     }

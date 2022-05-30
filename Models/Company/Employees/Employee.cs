@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StaffAccounting.Models.Company
 {
-    public abstract class Employee : ICRUDViewable, IDataJoinable
+    public abstract class Employee : IViewable, IDataJoinable
     {
         public int Id { get; set; }
         public string FirstName { get; set; } = null!;

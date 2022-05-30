@@ -96,5 +96,63 @@ namespace StaffAccounting.Controllers
 
             return NotFound();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id != null)
+            {
+                Employee employee = await _companyContext.Employees
+                    .FirstOrDefaultAsync(employee => employee.Id == id);
+                if (employee != null)
+                {
+                    employee.JoinFromDatabase(_companyContext);
+                    ViewResult view = employee.GetView(_viewProvider, HTTPActions.Update);
+                    view.ViewData.Add("Company", _companyContext);
+                    return view;
+                }
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditAccountant(Accountant employee)
+        {
+            return await UpdateEmployee(employee);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditDepartmentHead(DepartmentHead employee)
+        {
+            return await UpdateEmployee(employee);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditDirector(Director employee)
+        {
+            return await UpdateEmployee(employee);
+        }
+
+        // TODO
+        [HttpPost]
+        public async Task<IActionResult> EditManager(Manager employee)
+        {
+            return await UpdateEmployee(employee);
+        }
+
+        // TODO
+        [HttpPost]
+        public async Task<IActionResult> EditWorker(Worker employee)
+        {
+            return await UpdateEmployee(employee);
+        }
+
+        [NonAction]
+        private async Task<IActionResult> UpdateEmployee(Employee employee)
+        {
+            _companyContext.Employees.Update(employee);
+            await _companyContext.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
     }
 }
