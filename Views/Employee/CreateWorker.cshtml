@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Добавление работника";
     Layout = "_CreateTemplate";
-    IOrderedQueryable<Rank> orderedRank = 
+    IOrderedQueryable<Rank> orderedRanks = 
         ((IQueryable<Rank>)ViewBag.Company.Ranks)
         .OrderBy(rank => rank.Name);
     IOrderedQueryable<Manager> orderedManagers = 
@@ -14,7 +14,7 @@
 <div class="form-group">
     <label asp-for="RankId" class="control-label">Должность</label>
     <select id="RankId" asp-for="RankId" class="form-control">
-        @foreach (Rank rank in orderedRank)
+        @foreach (Rank rank in orderedRanks)
         {
             <option value=@rank.Id>@rank.Name</option>
         }

@@ -134,14 +134,12 @@ namespace StaffAccounting.Controllers
             return await UpdateEmployee(employee);
         }
 
-        // TODO
         [HttpPost]
         public async Task<IActionResult> EditManager(Manager employee)
         {
             return await UpdateEmployee(employee);
         }
 
-        // TODO
         [HttpPost]
         public async Task<IActionResult> EditWorker(Worker employee)
         {

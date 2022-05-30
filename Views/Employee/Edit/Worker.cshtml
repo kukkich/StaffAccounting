@@ -1,0 +1,47 @@
+﻿@using StaffAccounting.Models.Company
+@model Worker
+@{
+    IEnumerable<Rank> orderedRanks =
+    ((IQueryable<Rank>)((CompanyContext)ViewData["Company"]).Ranks)
+    .OrderBy(rank => rank.Name);
+    IEnumerable<Manager> orderedManagers =
+        ((IQueryable<Manager>)((CompanyContext)ViewData["Company"]).Managers)
+        .OrderBy(manager => manager.LastName);
+}
+
+<h2>Рабочий</h2>
+
+<form asp-action="EditWorker" asp-controller="Employee" asp-route-id="@Model.Id">
+    @await Html.PartialAsync("Edit/Employee", Model)
+
+    <div class="form-group">
+        <label asp-for="ManagerId" class="control-label">Менеджер</label>
+        <select id="ManagerId" asp-for="ManagerId" class="form-control">
+            <option selected="selected" value=@Model.ManagerId>@Model.Manager.FullName</option>
+            @foreach (Manager manager in orderedManagers)
+            {
+                if (manager.Id != Model.ManagerId)
+                {
+                    <option value=@manager.Id>@manager.FullName</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="RankId" class="control-label">Должность</label>
+        <select id="RankId" asp-for="RankId" class="form-control">
+            <option selected="selected" value=@Model.RankId>@Model.Rank.Name</option>
+            @foreach (Rank rank in orderedRanks)
+            {
+                if (rank.Id != Model.RankId)
+                {
+                    <option value=@rank.Id>@rank.Name</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="col-12">
+        <input type="submit" value="Сохранить" class="btn btn-outline-primary" />
+    </div>
+</form>
