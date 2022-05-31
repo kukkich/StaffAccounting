@@ -28,6 +28,7 @@ namespace StaffAccounting.Controllers
         public async Task<IActionResult> Index()
         {
             var employees = await _companyContext.Employees.ToListAsync();
+            //var juneJs = (Worker)employees.First(worker => worker.Id == 20);
             return View(employees);
         }
 

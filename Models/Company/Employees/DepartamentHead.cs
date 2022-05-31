@@ -8,10 +8,10 @@ namespace StaffAccounting.Models.Company
     [Notation("Глава департамента")]
     public class DepartmentHead : Employee, IDataJoinable
     {
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
         public Department Department { get; set; }
 
-        public int DirectorId { get; set; }
+        public int? DirectorId { get; set; }
         public Director Director { get; set; }
 
         public List<Manager> Managers { get; set; } = new();

@@ -14,7 +14,7 @@
     <div class="form-group">
         <label asp-for="DirectorId" class="control-label">Директор</label>
         <select id="DirectorId" asp-for="DirectorId" class="form-control">
-            <option selected="selected" value=@Model.DirectorId>@Model.Director.FullName</option>
+            <option selected="selected" value=@Model.DirectorId>@Model.Director?.FullName</option>
             @foreach (Director director in orderedDirectors)
             {
                 if (director.Id != Model.DirectorId)

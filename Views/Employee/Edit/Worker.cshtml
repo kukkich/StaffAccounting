@@ -17,7 +17,7 @@
     <div class="form-group">
         <label asp-for="ManagerId" class="control-label">Менеджер</label>
         <select id="ManagerId" asp-for="ManagerId" class="form-control">
-            <option selected="selected" value=@Model.ManagerId>@Model.Manager.FullName</option>
+            <option selected="selected" value=@Model.ManagerId>@Model.Manager?.FullName</option>
             @foreach (Manager manager in orderedManagers)
             {
                 if (manager.Id != Model.ManagerId)
@@ -30,7 +30,7 @@
     <div class="form-group">
         <label asp-for="RankId" class="control-label">Должность</label>
         <select id="RankId" asp-for="RankId" class="form-control">
-            <option selected="selected" value=@Model.RankId>@Model.Rank.Name</option>
+            <option selected="selected" value=@Model.RankId>@Model.Rank?.Name</option>
             @foreach (Rank rank in orderedRanks)
             {
                 if (rank.Id != Model.RankId)

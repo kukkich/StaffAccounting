@@ -8,7 +8,7 @@ namespace StaffAccounting.Models.Company
     [Notation("Бухгалтер")]
     public class Accountant : Employee
     {
-        public int DirectorId { get; set; }
+        public int? DirectorId { get; set; }
         public Director Director { get; set; }
 
         public Accountant() { }

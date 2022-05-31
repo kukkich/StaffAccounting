@@ -14,6 +14,7 @@
 <div class="form-group">
     <label asp-for="DepartmentHeadId" class="control-label">Глава Департамента</label>
     <select id="DepartmentHeadId" asp-for="DepartmentHeadId" class="form-control">
+        <option selected="selected" value=@null></option>
         @foreach (DepartmentHead head in orderedDepartmentHeads)
         {
             <option value=@head.Id>@head.FullName</option>
@@ -24,6 +25,7 @@
 <div class="form-group">
     <label asp-for="ProjectId" class="control-label">Проект</label>
     <select id="ProjectId" asp-for="ProjectId" class="form-control">
+        <option selected="selected" value=@null></option>
         @foreach (Project project in orderedProjects)
         {
             <option value=@project.Id>@project.Name</option>

@@ -30,7 +30,7 @@
     <div class="form-group">
         <label asp-for="ProjectId" class="control-label">Проект</label>
         <select id="ProjectId" asp-for="ProjectId" class="form-control">
-            <option selected="selected" value=@Model.ProjectId>@Model.Project.Name</option>
+            <option selected="selected" value=@Model.ProjectId>@Model.Project?.Name</option>
             @foreach (Project project in orderedProjects)
             {
                 if (project.Id != Model.ProjectId)

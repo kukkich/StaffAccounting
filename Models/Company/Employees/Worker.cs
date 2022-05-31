@@ -8,10 +8,10 @@ namespace StaffAccounting.Models.Company
     [Notation("Рабочий")]
     public class Worker : Employee
     {
-        public int ManagerId { get; set; }
+        public int? ManagerId { get; set; }
         public Manager Manager { get; set; }
 
-        public int RankId { get; set; }
+        public int? RankId { get; set; }
         public Rank Rank { get; set; }
 
         public Worker() { }
