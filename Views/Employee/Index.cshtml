@@ -19,8 +19,14 @@
             <td>@employee.Age</td>
             <td>@employee.Sex</td>
             <td>
-                <a asp-action="Details" asp-controller="Employee" asp-route-id="@employee.Id">Подробнее</a> |
-                <a asp-action="Edit" asp-controller="Employee" asp-route-id="@employee.Id">Изменить</a> |
+                <div class="btn-group">
+                    <a asp-action="Details" asp-controller="Employee" asp-route-id="@employee.Id" class="btn btn-outline-info btn-sm">Подробнее</a>
+                    <a asp-action="Edit" asp-controller="Employee" asp-route-id="@employee.Id" class="btn btn-outline-secondary btn-sm">Изменить</a>
+                    <form asp-action="Delete" asp-controller="Employee" asp-route-id="@employee.Id">
+                        <input type="submit" value="Удалить" class="btn btn-outline-danger btn-sm" />
+                    </form>
+                </div>
+
             </td>
         </tr>
     }

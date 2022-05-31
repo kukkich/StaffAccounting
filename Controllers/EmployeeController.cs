@@ -153,5 +153,21 @@ namespace StaffAccounting.Controllers
             await _companyContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id != null)
+            {
+                Employee employee = await _companyContext.Employees.FirstOrDefaultAsync(employee => employee.Id == id);
+                if (employee != null)
+                {
+                    _companyContext.Employees.Remove(employee);
+                    await _companyContext.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+            }
+            return NotFound();
+        }
     }
 }
