@@ -17,7 +17,15 @@
     <div class="form-group">
         <label asp-for="DepartmentHeadId" class="control-label">Глава департамента</label>
         <select id="DepartmentHeadId" asp-for="DepartmentHeadId" class="form-control">
-            <option selected="selected" value=@Model.DepartmentHeadId>@Model.DepartmentHead.FullName</option>
+            @if (Model.DepartmentHead == null)
+            {
+                <option selected="selected" value=@null>Не выбрано</option>
+            }
+            else
+            {
+                <option selected="selected" value=@Model.DepartmentHeadId>@Model.DepartmentHead?.FullName</option>
+                <option value=@null>Не выбрано</option>
+            }
             @foreach (DepartmentHead head in orderedHeads)
             {
                 if (head.Id != Model.DepartmentHeadId)
@@ -30,7 +38,15 @@
     <div class="form-group">
         <label asp-for="ProjectId" class="control-label">Проект</label>
         <select id="ProjectId" asp-for="ProjectId" class="form-control">
-            <option selected="selected" value=@Model.ProjectId>@Model.Project?.Name</option>
+            @if (Model.Project == null)
+            {
+                <option selected="selected" value=@null>Не выбрано</option>
+            }
+            else
+            {
+                <option selected="selected" value=@Model.ProjectId>@Model.Project?.Name</option>
+                <option value=@null>Не выбрано</option>
+            }
             @foreach (Project project in orderedProjects)
             {
                 if (project.Id != Model.ProjectId)
