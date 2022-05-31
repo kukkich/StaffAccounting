@@ -65,6 +65,7 @@ namespace StaffAccounting.Controllers
         }
 
         #region Create
+        // TODO concatinate in one Get method
         [HttpGet]
         public IActionResult SelectType()
         {
@@ -94,21 +95,18 @@ namespace StaffAccounting.Controllers
             return await Create(employee);
         }
 
-        // TODO
         [HttpPost]
         public async Task<IActionResult> CreateDirector(Director employee)
         {
             return await Create(employee);
         }
 
-        // TODO
         [HttpPost]
         public async Task<IActionResult> CreateManager(Manager employee)
         {
             return await Create(employee);
         }
 
-        // TODO
         [HttpPost]
         public async Task<IActionResult> CreateWorker(Worker employee)
         {

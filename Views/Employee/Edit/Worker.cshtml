@@ -2,8 +2,8 @@
 @model Worker
 @{
     IEnumerable<Rank> orderedRanks =
-    ((IQueryable<Rank>)((CompanyContext)ViewData["Company"]).Ranks)
-    .OrderBy(rank => rank.Name);
+        ((IQueryable<Rank>)((CompanyContext)ViewData["Company"]).Ranks)
+        .OrderBy(rank => rank.Name);
     IEnumerable<Manager> orderedManagers =
         ((IQueryable<Manager>)((CompanyContext)ViewData["Company"]).Managers)
         .OrderBy(manager => manager.LastName);

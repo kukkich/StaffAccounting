@@ -24,7 +24,5 @@
     <label asp-for="Sex" class="form-label">Пол</label>
     <select asp-for="Sex" asp-items="Html.GetEnumSelectList<StaffAccounting.Models.Company.Sex>()"
             class="form-control">
-        <option selected="selected" value="">Выберите пол</option>
     </select>
-    <span asp-validation-for="Sex"></span>
 </div>

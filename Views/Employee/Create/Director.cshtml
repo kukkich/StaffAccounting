@@ -1,0 +1,12 @@
+﻿@using StaffAccounting.Models.Company
+@model Director
+
+<h2>Директор</h2>
+
+<form asp-action="CreateDirector" asp-controller="Employee" asp-route-id="@Model.Id">
+    @await Html.PartialAsync("Create/Employee", Model)
+
+    <div class="col-12">
+        <input type="submit" value="Добавить" class="btn btn-outline-primary" />
+    </div>
+</form>

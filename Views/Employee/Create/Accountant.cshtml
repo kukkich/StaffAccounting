@@ -1,7 +1,6 @@
 ﻿@using StaffAccounting.Models.Company
 @model Accountant
 @{
-    ViewData["Title"] = "Глава департамента";
     IEnumerable<Director> orderedDirectors =
         ((IQueryable<Director>)((CompanyContext)ViewData["Company"]).Directors)
         .OrderBy(director => director.LastName).ToList();
