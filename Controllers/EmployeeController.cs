@@ -82,35 +82,7 @@ namespace StaffAccounting.Controllers
         {
             return await Create(employee);
         }
-
-        [NonAction]
-        private async Task<IActionResult> Create(Employee employee)
-        {
-            _companyContext.Employees.Update(employee);
-            await _companyContext.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
         #endregion Create
-
-        [HttpGet]
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id != null)
-            {
-                Employee employee = (await _companyContext.Employees
-                    .ToListAsync())
-                    .FirstOrDefault(employee => employee.Id == id);
-
-                if (employee != null)
-                {
-                    employee.JoinFromDatabase(_companyContext);
-                    ViewResult view = employee.GetView(_viewProvider, HTTPActions.Read);
-                    return view;
-                }
-            }
-
-            return NotFound();
-        }
 
         #region Edit
         [HttpGet]
@@ -160,15 +132,27 @@ namespace StaffAccounting.Controllers
         {
             return await Update(employee);
         }
-
-        [NonAction]
-        private async Task<IActionResult> Update(Employee employee)
-        {
-            _companyContext.Employees.Update(employee);
-            await _companyContext.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
         #endregion Edit
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id != null)
+            {
+                Employee employee = (await _companyContext.Employees
+                    .ToListAsync())
+                    .FirstOrDefault(employee => employee.Id == id);
+
+                if (employee != null)
+                {
+                    employee.JoinFromDatabase(_companyContext);
+                    ViewResult view = employee.GetView(_viewProvider, HTTPActions.Read);
+                    return view;
+                }
+            }
+
+            return NotFound();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Delete(int? id)
@@ -184,6 +168,22 @@ namespace StaffAccounting.Controllers
                 }
             }
             return NotFound();
+        }
+
+        [NonAction]
+        private async Task<IActionResult> Create(Employee employee)
+        {
+            _companyContext.Employees.Update(employee);
+            await _companyContext.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        [NonAction]
+        private async Task<IActionResult> Update(Employee employee)
+        {
+            _companyContext.Employees.Update(employee);
+            await _companyContext.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
     }
 }
