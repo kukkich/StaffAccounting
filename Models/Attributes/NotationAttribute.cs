@@ -1,4 +1,4 @@
-﻿namespace StaffAccounting.Models.Company
+﻿namespace StaffAccounting.Models.Company.Attributes
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class NotationAttribute : Attribute

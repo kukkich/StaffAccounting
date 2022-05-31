@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StaffAccounting.Models.VieweProviders;
+using StaffAccounting.Models.Company.Attributes;
+using StaffAccounting.Models.ViewProviders;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StaffAccounting.Models.Company
@@ -17,13 +18,6 @@ namespace StaffAccounting.Models.Company
         public List<Worker> Workers { get; set; } = new();
 
         public Manager() { }
-
-        public Manager(EmployeeCreationModel model)
-            : base(model)
-        {
-            DepartmentHeadId = model.DepartmentHeadId;
-            ProjectId = model.ProjectId;
-        }
 
         public override ViewResult GetView(IViewProvider viewProvider, HTTPActions action)
         {

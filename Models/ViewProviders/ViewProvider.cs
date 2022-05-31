@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StaffAccounting.Models.Company;
 
-namespace StaffAccounting.Models.VieweProviders
+namespace StaffAccounting.Models.ViewProviders
 {
     [NonController]
     public class ViewProvider : Controller, IViewProvider

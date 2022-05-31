@@ -1,4 +1,4 @@
-﻿namespace StaffAccounting.Models.VieweProviders
+﻿namespace StaffAccounting.Models.ViewProviders
 {
     public enum HTTPActions
     {
