@@ -3,10 +3,10 @@
 @{
     ViewData["Title"] = "Добавление менеджера";
     Layout = "_CreateTemplate";
-    IOrderedQueryable<Project> orderedProjects =
+    IEnumerable<Project> orderedProjects =
         ((IQueryable<Project>)ViewBag.Company.Projects)
         .OrderBy(project => project.Name);
-    IOrderedQueryable<DepartmentHead> orderedDepartmentHeads =
+    IEnumerable<DepartmentHead> orderedDepartmentHeads =
         ((IQueryable<DepartmentHead>)ViewBag.Company.DepartmentHeads)
         .OrderBy(head => head.LastName);
 }
