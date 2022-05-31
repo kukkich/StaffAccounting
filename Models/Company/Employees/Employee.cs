@@ -14,6 +14,18 @@ namespace StaffAccounting.Models.Company
         public DateTime Birthday { get; set; }
         public Sex Sex { get; set; }
         public string FullName => $"{LastName} {FirstName} {MiddleName}";
+        public int Age
+        {
+            get
+            {
+                var today = DateTime.Today;
+                var age = today.Year - Birthday.Year;
+
+                if (Birthday.Date > today.AddYears(-age)) age--;
+                return age;
+            }
+        }
+            
 
         protected Employee () { }
 
