@@ -11,6 +11,7 @@
 <div class="form-group">
     <label asp-for="DirectorId" class="control-label">Директор</label>
     <select id="DepartmentHeadId" asp-for="DirectorId" class="form-control">
+        <option selected="selected" value=@null>Не выбрано</option>
         @foreach (Director director in orderedDirectors)
         {
             <option value=@director.Id>@director.FullName</option>
