@@ -10,13 +10,13 @@
         <dt>Департамент</dt>
         <dd>
             <a asp-action="Details" asp-controller="Department" asp-route-id="@Model.DepartmentId">
-                @Model.Department.Name
+                @Model.Department?.Name
             </a>
         </dd>
         <dt>Директор</dt>
         <dd>
             <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.DirectorId">
-                @Model.Director.FullName
+                @Model.Director?.FullName
             </a>
         </dd>
         <dt>Мэнеджеры</dt>
