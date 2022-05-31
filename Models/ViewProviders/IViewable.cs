@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StaffAccounting.Models.Company;
 
 namespace StaffAccounting.Models.ViewProviders
 {

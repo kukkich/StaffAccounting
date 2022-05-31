@@ -1,12 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StaffAccounting.Models;
-using System.Diagnostics;
-using StaffAccounting.Models.Company;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
-using StaffAccounting.Extensions;
-using System.Threading.Tasks;
-using StaffAccounting.Models.ViewProviders;
+using StaffAccounting.Models.Company;
 
 namespace StaffAccounting.Controllers
 {

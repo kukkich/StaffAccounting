@@ -25,7 +25,7 @@ namespace StaffAccounting.Models
             Type type = GetTybeByNotation(notation);
             var constuructor = type.GetConstructors()
                 .First(ctor =>
-                    ctor.GetParameters().Length == 0 
+                    ctor.GetParameters().Length == 0
                 );
 
             return (Employee)constuructor.Invoke(Array.Empty<object>());

@@ -25,11 +25,11 @@ namespace StaffAccounting.Models.Company
 
         private void FillDataBase()
         {
-            Department devDepartment = new () { Name = "Разработка" };
-            Project projectBackend = new () { Name = "Backend" };
-            Project projectFrontend = new () { Name = "Frontend" };
-            Project projectDesign = new () { Name = "Design" };
-            Rank teamLeadCSharp = new () { Name = "Team Lead C#" };
+            Department devDepartment = new() { Name = "Разработка" };
+            Project projectBackend = new() { Name = "Backend" };
+            Project projectFrontend = new() { Name = "Frontend" };
+            Project projectDesign = new() { Name = "Design" };
+            Rank teamLeadCSharp = new() { Name = "Team Lead C#" };
             Rank middleCSharp = new() { Name = "Middle C#" };
             Rank seniorJS = new() { Name = "Senior JS" };
             Rank middleJS = new() { Name = "Middle JS" };

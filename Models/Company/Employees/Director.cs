@@ -12,13 +12,13 @@ namespace StaffAccounting.Models.Company
         public List<Accountant> Accountants { get; set; } = new();
         public List<DepartmentHead> DepartamentHeads { get; set; } = new();
 
-        public Director () { }
+        public Director() { }
 
         public override ViewResult GetView(IViewProvider viewProvider, HTTPActions action)
         {
             return viewProvider.Director(this, action);
         }
 
-        public override void JoinFromDatabase(CompanyContext context) {}
+        public override void JoinFromDatabase(CompanyContext context) { }
     }
 }

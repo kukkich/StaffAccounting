@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StaffAccounting.Models.ViewProviders;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace StaffAccounting.Models.Company
@@ -29,8 +28,8 @@ namespace StaffAccounting.Models.Company
                 return age;
             }
         }
-            
-        protected Employee () { }
+
+        protected Employee() { }
 
         public abstract ViewResult GetView(IViewProvider viewProvider, HTTPActions action);
         public abstract void JoinFromDatabase(CompanyContext context);

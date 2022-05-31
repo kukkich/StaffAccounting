@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using StaffAccounting.Models;
 using StaffAccounting.Models.Company;
 namespace StaffAccounting
 {
