@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using StaffAccounting.Extensions;
 using System.Threading.Tasks;
-using StaffAccounting.Models.VieweProviders;
+using StaffAccounting.Models.ViewProviders;
 
 namespace StaffAccounting.Controllers
 {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StaffAccounting.Models.VieweProviders;
+using StaffAccounting.Models.ViewProviders;
 using System;
 using System.ComponentModel.DataAnnotations;
 
