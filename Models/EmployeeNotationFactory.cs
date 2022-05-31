@@ -30,6 +30,17 @@ namespace StaffAccounting.Models
             return (Employee)constuructor.Invoke(new object[] { creationModel });
         }
 
+        public Employee CreateEmployee(string notation)
+        {
+            Type type = GetTybeByNotation(notation);
+            var constuructor = type.GetConstructors()
+                .First(ctor =>
+                    ctor.GetParameters().Length == 0 
+                );
+
+            return (Employee)constuructor.Invoke(Array.Empty<object>());
+        }
+
         public Type GetTybeByNotation(string notation) =>
             _employeeTypes.First(type =>
                     type.GetCustomAttribute<NotationAttribute>()?.Name == notation

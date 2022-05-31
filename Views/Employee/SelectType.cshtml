@@ -6,7 +6,7 @@
 <form asp-action="SelectType" asp-controller="employee">
     <div class="form-group">
         <label class="form-label">Тип</label>
-        <select class="form-control" name="employeeType">
+        <select class="form-control" name="employeeNotation">
             @foreach (string type in @ViewBag.EmployeeTypeNames)
             {
                 <option>@type</option>

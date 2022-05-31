@@ -28,7 +28,6 @@ namespace StaffAccounting.Controllers
         public async Task<IActionResult> Index()
         {
             var employees = await _companyContext.Employees.ToListAsync();
-            //var juneJs = (Worker)employees.First(worker => worker.Id == 20);
             return View(employees);
         }
 
@@ -65,6 +64,8 @@ namespace StaffAccounting.Controllers
             return RedirectToAction("Index");
         }
 
+        #region Create
+        [HttpGet]
         public IActionResult SelectType()
         {
             List<string> notations = _factory.Notations.ToList();
@@ -73,10 +74,55 @@ namespace StaffAccounting.Controllers
         }
 
         [HttpPost]
-        public IActionResult SelectType(string employeeType)
+        public IActionResult SelectType(string employeeNotation)
         {
-            return Redirect("/Employee/Create/" + employeeType.EncodeAsUrl());
+            Employee employee = _factory.CreateEmployee(employeeNotation);
+            ViewResult view = employee.GetView(_viewProvider, HTTPActions.Create);
+            view.ViewData.Add("Company", _companyContext);
+            return view;
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAccountant(Accountant employee)
+        {
+            return await Create(employee);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateDepartmentHead(DepartmentHead employee)
+        {
+            return await Create(employee);
+        }
+
+        // TODO
+        [HttpPost]
+        public async Task<IActionResult> CreateDirector(Director employee)
+        {
+            return await Create(employee);
+        }
+
+        // TODO
+        [HttpPost]
+        public async Task<IActionResult> CreateManager(Manager employee)
+        {
+            return await Create(employee);
+        }
+
+        // TODO
+        [HttpPost]
+        public async Task<IActionResult> CreateWorker(Worker employee)
+        {
+            return await Create(employee);
+        }
+
+        [NonAction]
+        private async Task<IActionResult> Create(Employee employee)
+        {
+            _companyContext.Employees.Update(employee);
+            await _companyContext.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+        #endregion Create
 
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
@@ -98,6 +144,7 @@ namespace StaffAccounting.Controllers
             return NotFound();
         }
 
+        #region Edit
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -119,40 +166,41 @@ namespace StaffAccounting.Controllers
         [HttpPost]
         public async Task<IActionResult> EditAccountant(Accountant employee)
         {
-            return await UpdateEmployee(employee);
+            return await Update(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> EditDepartmentHead(DepartmentHead employee)
         {
-            return await UpdateEmployee(employee);
+            return await Update(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> EditDirector(Director employee)
         {
-            return await UpdateEmployee(employee);
+            return await Update(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> EditManager(Manager employee)
         {
-            return await UpdateEmployee(employee);
+            return await Update(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> EditWorker(Worker employee)
         {
-            return await UpdateEmployee(employee);
+            return await Update(employee);
         }
 
         [NonAction]
-        private async Task<IActionResult> UpdateEmployee(Employee employee)
+        private async Task<IActionResult> Update(Employee employee)
         {
             _companyContext.Employees.Update(employee);
             await _companyContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+        #endregion Edit
 
         [HttpPost]
         public async Task<IActionResult> Delete(int? id)
