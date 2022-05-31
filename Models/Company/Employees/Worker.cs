@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StaffAccounting.Models.Company.Attributes;
 using StaffAccounting.Models.VieweProviders;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,13 +16,6 @@ namespace StaffAccounting.Models.Company
         public Rank Rank { get; set; }
 
         public Worker() { }
-
-        public Worker(EmployeeCreationModel model) 
-            : base(model)
-        {
-            ManagerId = model.ManagerId;
-            RankId = model.RankId;
-        }
 
         public override ViewResult GetView(IViewProvider viewProvider, HTTPActions action)
         {

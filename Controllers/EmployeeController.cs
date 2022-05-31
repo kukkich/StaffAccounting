@@ -37,33 +37,6 @@ namespace StaffAccounting.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [HttpGet]
-        [Route("Employee/Create/{employeeNotation}")]
-        public IActionResult Create(string employeeNotation)
-        {
-            string employeeClassName = _factory.GetClassName(employeeNotation.DecodeAsUrl());
-            ViewBag.Company = _companyContext;
-            return View("Create" + employeeClassName);
-        }
-
-        [HttpPost]
-        [Route("Employee/Create/{employeeNotation}")]
-        public IActionResult Create(EmployeeCreationModel employeeModel, string employeeNotation)
-        {
-            Type employeeType = _factory.GetTybeByNotation(employeeNotation.DecodeAsUrl());
-
-            ViewBag.Company = _companyContext;
-            if (!ModelState.IsValid)
-                return View("Create" + employeeType.Name, employeeModel);
-
-            Employee newEmployee = _factory.CreateEmployee(employeeType, employeeModel);
-
-            _companyContext.Employees.Add(newEmployee);
-
-            _companyContext.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
         #region Create
         // TODO concatinate in one Get method
         [HttpGet]

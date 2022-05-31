@@ -1,4 +1,5 @@
 ﻿using StaffAccounting.Models.Company;
+using StaffAccounting.Models.Company.Attributes;
 using System.Reflection;
 
 namespace StaffAccounting.Models
@@ -19,17 +20,6 @@ namespace StaffAccounting.Models
                 );
         }
 
-        public Employee CreateEmployee(Type type, EmployeeCreationModel creationModel)
-        {
-            var constuructor = type.GetConstructors()
-                .First(ctor => 
-                    ctor.GetParameters().Length == 1 &&
-                    ctor.GetParameters()[0].ParameterType == typeof(EmployeeCreationModel)
-                );
-            
-            return (Employee)constuructor.Invoke(new object[] { creationModel });
-        }
-
         public Employee CreateEmployee(string notation)
         {
             Type type = GetTybeByNotation(notation);
@@ -41,16 +31,9 @@ namespace StaffAccounting.Models
             return (Employee)constuructor.Invoke(Array.Empty<object>());
         }
 
-        public Type GetTybeByNotation(string notation) =>
+        private Type GetTybeByNotation(string notation) =>
             _employeeTypes.First(type =>
                     type.GetCustomAttribute<NotationAttribute>()?.Name == notation
                    );
-
-        public string GetClassName(string notation) =>
-            GetTybeByNotation(notation).Name;
-
-        public string GetClassName(Employee employee) =>
-            employee.GetType().Name;
-
     }
 }
