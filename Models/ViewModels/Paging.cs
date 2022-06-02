@@ -26,7 +26,7 @@
             PageNumber = pageNumber;
         }
 
-        private bool IsCorrectPageNumber(int pageNumber)
+        public bool IsCorrectPageNumber(int pageNumber)
         {
             return pageNumber > 0 && pageNumber <= TotalPages;
         }

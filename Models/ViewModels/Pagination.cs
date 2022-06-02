@@ -37,5 +37,8 @@ namespace StaffAccounting.Models.ViewModels
                 .Take(PageSize)
                 .ToListAsync();
         }
+
+        public bool HasPage(int page) => _paging.IsCorrectPageNumber(page);
+
     }
 }

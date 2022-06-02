@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using StaffAccounting.Models;
 using StaffAccounting.Models.Company;
+using StaffAccounting.Models.ViewModels;
 using StaffAccounting.Models.ViewProviders;
 using System.Diagnostics;
 
@@ -22,10 +23,24 @@ namespace StaffAccounting.Controllers
             _factory = new EmployeeNotationFactory();
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page=1)
         {
-            var employees = await _companyContext.Employees.ToListAsync();
-            return View(employees);
+            if (page < 0)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                Pagination<Employee> pagination = new(_companyContext.Employees, 6);
+                pagination.PageNumber = page;
+
+                return View(pagination);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return NotFound();
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
