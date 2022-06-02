@@ -1,7 +1,10 @@
-﻿@{
+﻿@using StaffAccounting.Models.ViewModels
+@using StaffAccounting.Models.Company
+@model Pagination<Employee>
+@{
     ViewData["Title"] = "Home Page";
+    var employeeTask = Model.GetItemsAsync();
 }
-@model IEnumerable<StaffAccounting.Models.Company.Employee>
 
 <table class="table">
     <tr>
@@ -11,7 +14,7 @@
         <td>Пол</td>
         <td>Действия</td>
     </tr>
-    @foreach (var employee in Model)
+    @foreach (var employee in await employeeTask)
     {
         <tr>
             <td>@employee.Id</td>
@@ -31,3 +34,77 @@
         </tr>
     }
 </table>
+@*@if (Model.HasPreviousPage)
+    {
+    <a asp-action="Index" asp-route-page="@(Model.PageNumber - 1)"
+    class="btn btn-outline-dark">
+    Назад
+    </a>
+    }
+
+    @if (Model.HasNextPage)
+    {
+    <a asp-action="Index" asp-route-page="@(Model.PageNumber + 1)"
+    class="btn btn-outline-dark">
+    Вперед
+
+    </a>
+    }
+*@
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        @if (Model.HasPreviousPage)
+        {
+            <li class="page-item">
+                <a asp-action="Index" asp-route-page="@(Model.PageNumber - 1)"
+               class="page-link">
+                    <span aria-hidden="true">&laquo;  </span>
+                </a>
+            </li>
+        }
+        <li class="page-item">
+            <a asp-action="Index" asp-route-page="1"
+               class="page-link">
+                <span aria-hidden="true">1</span>
+            </a>
+        </li>
+        @if (Model.HasPage(2))
+        {
+            <li class="page-item">
+                <a asp-action="Index" asp-route-page="2"
+               class="page-link">
+                    <span aria-hidden="true">2</span>
+                </a>
+            </li>
+        }
+
+        @if (Model.TotalPages > 2)
+        {
+            @if (Model.TotalPages > 3)
+            {
+                <li class="page-item">
+                    <div class="page-link">
+                        <span aria-hidden="true">...</span>
+                    </div>
+                </li>
+            }
+            <li class="page-item">
+                <a asp-action="Index" asp-route-page="@Model.TotalPages"
+               class="page-link">
+                    <span aria-hidden="true">@Model.TotalPages</span>
+                </a>
+            </li>
+        }
+
+        @if (Model.HasNextPage)
+        {
+            <li class="page-item">
+                <a asp-action="Index" asp-route-page="@(Model.PageNumber + 1)"
+               class="page-link">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        }
+    </ul>
+</nav>
