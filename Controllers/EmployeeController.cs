@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using StaffAccounting.Models;
 using StaffAccounting.Models.Company;
+using StaffAccounting.Models.Filtration;
 using StaffAccounting.Models.ViewModels;
 using StaffAccounting.Models.ViewProviders;
 using System.Diagnostics;
@@ -32,6 +33,7 @@ namespace StaffAccounting.Controllers
 
             try
             {
+                _companyContext.Employees.Filter(new FilterOption { DirectorId = 10 });
                 Pagination<Employee> pagination = new(_companyContext.Employees, 6);
                 pagination.PageNumber = page;
 

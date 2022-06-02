@@ -1,11 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using StaffAccounting.Models.Company;
+using StaffAccounting.Models.Filtration;
 namespace StaffAccounting
 {
     public class Program
     {
         public static void Main(string[] args)
         {
+            var option = new FilterOption();
+
+
+
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllersWithViews();
