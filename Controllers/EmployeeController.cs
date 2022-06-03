@@ -15,7 +15,7 @@ namespace StaffAccounting.Controllers
         private readonly CompanyContext _companyContext;
         private readonly EmployeeNotationFactory _factory;
         private readonly IViewProvider _viewProvider;
-
+        private const int _pageSize = 6;
         public EmployeeController(ILogger<EmployeeController> logger, CompanyContext companyContext)
         {
             _viewProvider = new ViewProvider();
@@ -24,22 +24,36 @@ namespace StaffAccounting.Controllers
             _factory = new EmployeeNotationFactory();
         }
 
-        public async Task<IActionResult> Index(int page=1)
+        public async Task<IActionResult> Index(int page = 1)
         {
             if (page < 0)
             {
                 return NotFound();
             }
-
             try
             {
-                _companyContext.Employees.Filter(new FilterOption { DirectorId = 10 });
-                Pagination<Employee> pagination = new(_companyContext.Employees, 6);
+                FilterOption filterOption = new(Request.Query);
+                IEnumerable<Employee> items;
+                Pagination<Employee> pagination;
+                if (filterOption.IsEmpty())
+                {
+                    items = _companyContext.Employees;
+                }
+                else
+                {
+                    items = _companyContext.Employees
+                        .AsEnumerable()
+                        .AsParallel()
+                        .Filter(filterOption);
+                        //.ToList();
+                }
+
+                pagination = new(items, 6);
                 pagination.PageNumber = page;
 
                 return View(pagination);
             }
-            catch (ArgumentOutOfRangeException)
+            catch (Exception)
             {
                 return NotFound();
             }

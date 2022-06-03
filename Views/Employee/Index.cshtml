@@ -34,23 +34,6 @@
         </tr>
     }
 </table>
-@*@if (Model.HasPreviousPage)
-    {
-    <a asp-action="Index" asp-route-page="@(Model.PageNumber - 1)"
-    class="btn btn-outline-dark">
-    Назад
-    </a>
-    }
-
-    @if (Model.HasNextPage)
-    {
-    <a asp-action="Index" asp-route-page="@(Model.PageNumber + 1)"
-    class="btn btn-outline-dark">
-    Вперед
-
-    </a>
-    }
-*@
 
 <nav aria-label="Page navigation example">
     <ul class="pagination">

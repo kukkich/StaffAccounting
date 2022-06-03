@@ -7,8 +7,7 @@
         {
             return collection.Where(item => item.IsMatch(option));
         }
-
-        public static IQueryable<T> Filter<T>(this IQueryable<T> collection, FilterOption option)
+        public static ParallelQuery<T> Filter<T>(this ParallelQuery<T> collection, FilterOption option)
             where T : IFiltrable
         {
             return collection.Where(item => item.IsMatch(option));

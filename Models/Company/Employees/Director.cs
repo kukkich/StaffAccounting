@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StaffAccounting.Models.Company.Attributes;
+using StaffAccounting.Models.Filtration;
 using StaffAccounting.Models.ViewProviders;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,5 +21,7 @@ namespace StaffAccounting.Models.Company
         }
 
         public override void JoinFromDatabase(CompanyContext context) { }
+
+        public override bool IsMatch(FilterOption option) => false;
     }
 }

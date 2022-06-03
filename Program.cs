@@ -7,10 +7,6 @@ namespace StaffAccounting
     {
         public static void Main(string[] args)
         {
-            var option = new FilterOption();
-
-
-
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllersWithViews();
