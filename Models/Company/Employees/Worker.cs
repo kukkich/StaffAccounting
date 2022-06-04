@@ -31,8 +31,8 @@ namespace StaffAccounting.Models.Company
 
         public override bool IsMatch(FilterOption option)
         {
-            return option.ManagerId is not null && option.ManagerId  == ManagerId
-                || option.RankId is not null && option.RankId  == RankId;
+            return (option.ManagerId is not null && option.ManagerId  == ManagerId)
+                || (option.RankId is not null && option.RankId  == RankId);
         }
     }
 }

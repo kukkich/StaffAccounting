@@ -14,12 +14,12 @@
 
         public FilterOption (IQueryCollection query)
         {
-            DepartmentId = TryParseInt(query.FirstOrDefault(p => p.Key == nameof(DepartmentId)).Value);
-            ProjectId = TryParseInt(query.FirstOrDefault(p => p.Key == nameof(ProjectId)).Value);
-            RankId = TryParseInt(query.FirstOrDefault(p => p.Key == nameof(RankId)).Value);
-            DepartmentHeadId = TryParseInt(query.FirstOrDefault(p => p.Key == nameof(DepartmentHeadId)).Value);
-            DirectorId = TryParseInt(query.FirstOrDefault(p => p.Key == nameof(DirectorId)).Value);
-            ManagerId = TryParseInt(query.FirstOrDefault(p => p.Key == nameof(ManagerId)).Value);
+            DepartmentId = TryParseInt(query[nameof(DepartmentId)]);
+            ProjectId = TryParseInt(query[nameof(ProjectId)]);
+            RankId = TryParseInt(query[nameof(RankId)]);
+            DepartmentHeadId = TryParseInt(query[nameof(DepartmentHeadId)]);
+            DirectorId = TryParseInt(query[nameof(DirectorId)]);
+            ManagerId = TryParseInt(query[nameof(ManagerId)]);
         }
 
         public bool IsEmpty() =>

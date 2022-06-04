@@ -32,26 +32,9 @@ namespace StaffAccounting.Controllers
             }
             try
             {
-                FilterOption filterOption = new(Request.Query);
-                IEnumerable<Employee> items;
-                Pagination<Employee> pagination;
-                if (filterOption.IsEmpty())
-                {
-                    items = _companyContext.Employees;
-                }
-                else
-                {
-                    items = _companyContext.Employees
-                        .AsEnumerable()
-                        .AsParallel()
-                        .Filter(filterOption);
-                        //.ToList();
-                }
-
-                pagination = new(items, 6);
-                pagination.PageNumber = page;
-
-                return View(pagination);
+                IndexViewModel viewModel = new(_companyContext.Employees, page, Request.Query);
+                var queryDictionary = Request.Query.ToDictionary(x => x.Key, x => x.Value);
+                return View(viewModel);
             }
             catch (Exception)
             {
@@ -87,30 +70,60 @@ namespace StaffAccounting.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAccountant(Accountant employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Create);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Create(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateDepartmentHead(DepartmentHead employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Create);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Create(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateDirector(Director employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Create);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Create(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateManager(Manager employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Create);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Create(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateWorker(Worker employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Create);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Create(employee);
         }
         #endregion Create
@@ -137,30 +150,60 @@ namespace StaffAccounting.Controllers
         [HttpPost]
         public async Task<IActionResult> EditAccountant(Accountant employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Update);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Update(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> EditDepartmentHead(DepartmentHead employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Update);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Update(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> EditDirector(Director employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Update);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Update(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> EditManager(Manager employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Update);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Update(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> EditWorker(Worker employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Update);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Update(employee);
         }
         #endregion Edit
@@ -204,7 +247,7 @@ namespace StaffAccounting.Controllers
         [NonAction]
         private async Task<IActionResult> Create(Employee employee)
         {
-            _companyContext.Employees.Update(employee);
+            _companyContext.Employees.Add(employee);
             await _companyContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }

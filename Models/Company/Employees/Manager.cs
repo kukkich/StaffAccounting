@@ -33,8 +33,8 @@ namespace StaffAccounting.Models.Company
 
         public override bool IsMatch(FilterOption option)
         {
-            return option.DepartmentHeadId is not null && option.DepartmentHeadId == DepartmentHeadId
-                || option.ProjectId is not null && option.ProjectId == ProjectId;
+            return (option.DepartmentHeadId is not null && option.DepartmentHeadId == DepartmentHeadId)
+                || (option.ProjectId is not null && option.ProjectId == ProjectId);
         }
     }
 }

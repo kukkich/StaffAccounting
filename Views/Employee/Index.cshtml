@@ -1,9 +1,9 @@
 ﻿@using StaffAccounting.Models.ViewModels
 @using StaffAccounting.Models.Company
-@model Pagination<Employee>
+@model IndexViewModel
 @{
     ViewData["Title"] = "Home Page";
-    var employeeTask = Model.GetItemsAsync();
+    var employeeTask = Model.Pagination.GetItemsAsync();
 }
 
 <table class="table">
@@ -37,34 +37,37 @@
 
 <nav aria-label="Page navigation example">
     <ul class="pagination">
-        @if (Model.HasPreviousPage)
+        @if (Model.Pagination.HasPreviousPage)
         {
             <li class="page-item">
-                <a asp-action="Index" asp-route-page="@(Model.PageNumber - 1)"
-               class="page-link">
+                <a asp-action="Index" asp-all-route-data="@Model.QueryData"
+                    asp-route-page="@(Model.Pagination.PageNumber - 1)"
+                    class="page-link">
                     <span aria-hidden="true">&laquo;  </span>
                 </a>
             </li>
         }
         <li class="page-item">
-            <a asp-action="Index" asp-route-page="1"
-               class="page-link">
+            <a asp-action="Index" asp-all-route-data="@Model.QueryData" 
+                asp-route-page="1"
+                class="page-link">
                 <span aria-hidden="true">1</span>
             </a>
         </li>
-        @if (Model.HasPage(2))
+        @if (Model.Pagination.HasPage(2))
         {
             <li class="page-item">
-                <a asp-action="Index" asp-route-page="2"
-               class="page-link">
+                <a asp-action="Index" asp-all-route-data="@Model.QueryData"
+                    asp-route-page="2"
+                    class="page-link">
                     <span aria-hidden="true">2</span>
                 </a>
             </li>
         }
 
-        @if (Model.TotalPages > 2)
+        @if (Model.Pagination.TotalPages > 2)
         {
-            @if (Model.TotalPages > 3)
+            @if (Model.Pagination.TotalPages > 3)
             {
                 <li class="page-item">
                     <div class="page-link">
@@ -73,18 +76,20 @@
                 </li>
             }
             <li class="page-item">
-                <a asp-action="Index" asp-route-page="@Model.TotalPages"
-               class="page-link">
-                    <span aria-hidden="true">@Model.TotalPages</span>
+                <a asp-action="Index" asp-all-route-data="@Model.QueryData"
+                    asp-route-page="@Model.Pagination.TotalPages"
+                    class="page-link">
+                    <span aria-hidden="true">@Model.Pagination.TotalPages</span>
                 </a>
             </li>
         }
 
-        @if (Model.HasNextPage)
+        @if (Model.Pagination.HasNextPage)
         {
             <li class="page-item">
-                <a asp-action="Index" asp-route-page="@(Model.PageNumber + 1)"
-               class="page-link">
+                <a asp-action="Index" asp-all-route-data="@Model.QueryData" 
+                    asp-route-page="@(Model.Pagination.PageNumber + 1)"
+                    class="page-link">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

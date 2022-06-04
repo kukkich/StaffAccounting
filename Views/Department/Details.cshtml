@@ -9,13 +9,21 @@
             <div class="items-collection">
                 @{
                     int headsCount = Model.Heads.Count();
+                    int headsLimit = 3;
+                    int finalLimit = Math.Min(headsCount, headsLimit);
                 }
-                @for (int headsNumber = 0; headsNumber < headsCount; headsNumber++)
+                @for (int headsNumber = 0; headsNumber < finalLimit; headsNumber++)
                 {
                     <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.Heads[headsNumber].Id">
                         @(headsNumber+1). @Model.Heads[headsNumber].FullName
                     </a>
                     <br />
+                }
+                @if (headsCount > headsLimit)
+                {
+                    <a asp-action="Index" asp-controller="Employee" asp-route-DepartmentId="@Model.Id">
+                        Ещё
+                    </a>
                 }
             </div>
         </dd>
