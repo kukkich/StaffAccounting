@@ -9,22 +9,22 @@
             <div class="items-collection">
                 @{
                     int managersCount = Model.Managers.Count();
-                    int managersLimit = 3;
-                    int finalLimit = Math.Min(managersCount, managersLimit);
                 }
-                @for (int managersNumber = 0; managersNumber < finalLimit; managersNumber++)
+                @for (int managersNumber = 0; managersNumber < Math.Min(managersCount, 3); managersNumber++)
                 {
                     <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.Managers[managersNumber].Id">
                         @(managersNumber+1). @Model.Managers[managersNumber].FullName
                     </a>
                     <br />
                 }
-                @if (managersCount > managersLimit)
+                @if (managersCount > 3)
                 {
-                    <a asp-action="Index" asp-controller="Employee" asp-route-ProjectId="@Model.Id">
-                        Ещё
-                    </a>
+                    <text>...</text>
+                    <br />
                 }
+                <a asp-action="Index" asp-controller="Employee" asp-route-ProjectId="@Model.Id">
+                    Подробнее
+                </a>
             </div>
         </dd>
     </dl>

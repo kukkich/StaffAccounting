@@ -25,13 +25,21 @@
                 @{
                     int managersCount = Model.Managers.Count();
                 }
-                @for (int managerNumber = 0; managerNumber < managersCount; managerNumber++)
+                @for (int managerNumber = 0; managerNumber < Math.Min(managersCount, 3); managerNumber++)
                 {
                     <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.Managers[managerNumber].Id">
                         @(managerNumber+1). @Model.Managers[managerNumber].FullName
                     </a>
                     <br />
                 }
+                @if (managersCount > 3)
+                {
+                    <text>...</text>
+                    <br />
+                }
+                <a asp-action="Index" asp-controller="Employee" asp-route-DepartmentHeadId="@Model.Id">
+                    Подробнее
+                </a>
             </div>
         </dd>
     </dl>

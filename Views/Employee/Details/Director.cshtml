@@ -13,13 +13,21 @@
                 @{
                     int accountantsCount = Model.Accountants.Count();
                 }
-                @for (int accountantNumber = 0; accountantNumber < accountantsCount; accountantNumber++)
+                @for (int accountantNumber = 0; accountantNumber < Math.Min(accountantsCount, 3); accountantNumber++)
                 {
                     <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.Accountants[accountantNumber].Id">
                         @(accountantNumber+1). @Model.Accountants[accountantNumber].FullName
                     </a>
                     <br />
                 }
+                @if (accountantsCount > 3)
+                {
+                    <text>...</text>
+                    <br />
+                }
+                <a asp-action="Index" asp-controller="Employee" asp-route-DirectorId="@Model.Id">
+                    Подробнее
+                </a>
             </div>
         </dd>
         <dt>Главы департамента</dt>
@@ -28,13 +36,21 @@
                 @{
                     int headsCount = Model.DepartamentHeads.Count();
                 }
-                @for (int headsNumber = 0; headsNumber < headsCount; headsNumber++)
+                @for (int headsNumber = 0; headsNumber < Math.Min(headsCount, 3); headsNumber++)
                 {
                     <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.DepartamentHeads[headsNumber].Id">
                         @(headsNumber+1). @Model.DepartamentHeads[headsNumber].FullName
                     </a>
                     <br />
                 }
+                @if (headsCount > 3)
+                {
+                    <text>...</text>
+                    <br />
+                }
+                <a asp-action="Index" asp-controller="Employee" asp-route-DirectorId="@Model.Id">
+                    Подробнее
+                </a>
             </div>
         </dd>
     </dl>
