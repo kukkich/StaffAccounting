@@ -2,6 +2,6 @@
 {
     public interface IFiltrable
     {
-        public bool IsMatch(FilterOption option);
+        public bool IsMatch(RelationFilterOption option);
     }
 }

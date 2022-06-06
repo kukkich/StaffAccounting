@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StaffAccounting.Models.Company.Attributes;
+using StaffAccounting.Models.Notation;
 using StaffAccounting.Models.Filtration;
 using StaffAccounting.Models.ViewProviders;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -31,7 +31,7 @@ namespace StaffAccounting.Models.Company
             DepartmentHead = context.DepartmentHeads.FirstOrDefault(departmentHead => departmentHead.Id == DepartmentHeadId);
         }
 
-        public override bool IsMatch(FilterOption option)
+        public override bool IsMatch(RelationFilterOption option)
         {
             return (option.DepartmentHeadId is not null && option.DepartmentHeadId == DepartmentHeadId)
                 || (option.ProjectId is not null && option.ProjectId == ProjectId);

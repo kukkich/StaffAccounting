@@ -34,6 +34,6 @@ namespace StaffAccounting.Models.Company
 
         public abstract ViewResult GetView(IViewProvider viewProvider, HTTPActions action);
         public abstract void JoinFromDatabase(CompanyContext context);
-        public abstract bool IsMatch(FilterOption option);
+        public abstract bool IsMatch(RelationFilterOption option);
     }
 }

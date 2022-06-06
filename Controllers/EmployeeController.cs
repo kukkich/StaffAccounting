@@ -24,7 +24,7 @@ namespace StaffAccounting.Controllers
             _factory = new EmployeeNotationFactory();
         }
 
-        public async Task<IActionResult> Index(int page = 1)
+        public IActionResult Index(int page = 1,[FromQuery] string requiredNotation = null)
         {
             if (page < 0)
             {
@@ -32,8 +32,7 @@ namespace StaffAccounting.Controllers
             }
             try
             {
-                IndexViewModel viewModel = new(_companyContext.Employees, page, Request.Query);
-                var queryDictionary = Request.Query.ToDictionary(x => x.Key, x => x.Value);
+                IndexViewModel viewModel = new(_companyContext, page, Request.Query, requiredNotation);
                 return View(viewModel);
             }
             catch (Exception)
@@ -53,7 +52,7 @@ namespace StaffAccounting.Controllers
         [HttpGet]
         public IActionResult SelectType()
         {
-            List<string> notations = _factory.Notations.ToList();
+            List<string> notations = _factory.Provider.Notations.ToList();
             ViewBag.EmployeeTypeNames = notations;
             return View();
         }

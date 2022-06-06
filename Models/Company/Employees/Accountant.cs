@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StaffAccounting.Models.Company.Attributes;
+using StaffAccounting.Models.Notation;
 using StaffAccounting.Models.Filtration;
 using StaffAccounting.Models.ViewProviders;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,7 +25,7 @@ namespace StaffAccounting.Models.Company
             Director = context.Directors.FirstOrDefault(director => director.Id == DirectorId);
         }
 
-        public override bool IsMatch(FilterOption option)
+        public override bool IsMatch(RelationFilterOption option)
         {
             return option.DirectorId is not null && option.DirectorId == DirectorId; 
         }

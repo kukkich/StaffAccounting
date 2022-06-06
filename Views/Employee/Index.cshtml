@@ -6,6 +6,21 @@
     var employeeTask = Model.Pagination.GetItemsAsync();
 }
 
+<form method="get">
+    <div class="form-inline form-group">
+        <label class="control-label">Должность: </label>
+        <select class="form-control" name="requiredNotation">
+            <option selected="selected"></option>
+            @foreach (string type in Model.NotationProvider.Notations)
+            {
+                <option>@type</option>
+            }
+        </select>
+ 
+        <input type="submit" value="Отфильтровать" class="btn btn-outline-primary" />
+    </div>
+</form>
+
 <table class="table">
     <tr>
         <td>Id</td>

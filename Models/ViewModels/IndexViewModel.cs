@@ -2,19 +2,28 @@
 using Microsoft.Extensions.Primitives;
 using StaffAccounting.Models.Company;
 using StaffAccounting.Models.Filtration;
+using StaffAccounting.Models.Notation;
 
 namespace StaffAccounting.Models.ViewModels
 {
     public class IndexViewModel
     {
         public Pagination<Employee> Pagination { get; set; }
-        public FilterOption FilterParameters { get; set; }
+        public RelationFilterOption FilterParameters { get; set; }
         public Dictionary<string, string> QueryData { get; set; }
+        public EmployeeNotationProvider NotationProvider { get; }
+
         private const int _pageSize = 2;
 
-        public IndexViewModel (DbSet<Employee> items, int page, IQueryCollection query)
+        public IndexViewModel (CompanyContext context, int page, IQueryCollection query, string requiredNotation)
         {
             QueryData = query.ToDictionary(x => x.Key, x => (string)x.Value);
+
+            PositionFilter positionFilter = new(requiredNotation, context);
+            NotationProvider = positionFilter.Provider;
+
+            IEnumerable<Employee> items = positionFilter.RequiredEmployees;
+
             FilterParameters = new(query);
             if (FilterParameters.IsEmpty())
                 Pagination = new(items, _pageSize);

@@ -1,6 +1,6 @@
 ﻿namespace StaffAccounting.Models.Filtration
 {
-    public class FilterOption
+    public class RelationFilterOption
     {
         public int? DepartmentId;
         public int? ProjectId;
@@ -9,10 +9,7 @@
         public int? DirectorId;
         public int? ManagerId;
 
-        // ASP .Net require this constructor
-        public FilterOption () { }
-
-        public FilterOption (IQueryCollection query)
+        public RelationFilterOption (IQueryCollection query)
         {
             DepartmentId = TryParseInt(query[nameof(DepartmentId)]);
             ProjectId = TryParseInt(query[nameof(ProjectId)]);
