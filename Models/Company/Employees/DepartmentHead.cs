@@ -18,6 +18,8 @@ namespace StaffAccounting.Models.Company
 
         public List<Manager> Managers { get; set; } = new();
 
+        public override bool CanBeRised => true;
+
         public DepartmentHead() { }
 
         public override ViewResult GetView(IViewProvider viewProvider, HTTPActions action)
@@ -35,6 +37,13 @@ namespace StaffAccounting.Models.Company
         {
             return (option.DepartmentId is not null && option.DepartmentId == DepartmentId)
                 || (option.DirectorId is not null && option.DirectorId == DirectorId);
+        }
+
+        public override Employee GetRisedEmployee()
+        {
+            Employee raised = new Director();
+            FillRised(raised);
+            return raised;
         }
     }
 }

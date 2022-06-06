@@ -13,6 +13,8 @@ namespace StaffAccounting.Models.Company
         public List<Accountant> Accountants { get; set; } = new();
         public List<DepartmentHead> DepartamentHeads { get; set; } = new();
 
+        public override bool CanBeRised => false;
+
         public Director() { }
 
         public override ViewResult GetView(IViewProvider viewProvider, HTTPActions action)
@@ -23,5 +25,10 @@ namespace StaffAccounting.Models.Company
         public override void JoinFromDatabase(CompanyContext context) { }
 
         public override bool IsMatch(RelationFilterOption option) => false;
+
+        public override Employee GetRisedEmployee()
+        {
+            throw new InvalidOperationException();
+        }
     }
 }
