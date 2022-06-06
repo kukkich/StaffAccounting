@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StaffAccounting.Models.Company;
+using StaffAccounting.Models.Filtration;
 namespace StaffAccounting
 {
     public class Program

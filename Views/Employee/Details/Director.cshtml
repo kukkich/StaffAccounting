@@ -13,12 +13,29 @@
                 @{
                     int accountantsCount = Model.Accountants.Count();
                 }
-                @for (int accountantNumber = 0; accountantNumber < accountantsCount; accountantNumber++)
+                @if (accountantsCount != 0)
                 {
-                    <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.Accountants[accountantNumber].Id">
-                        @(accountantNumber+1). @Model.Accountants[accountantNumber].FullName
+
+
+                    @for (int accountantNumber = 0; accountantNumber < Math.Min(accountantsCount, 3); accountantNumber++)
+                    {
+                        <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.Accountants[accountantNumber].Id">
+                            @(accountantNumber+1). @Model.Accountants[accountantNumber].FullName
+                        </a>
+                        <br />
+                    }
+                    @if (accountantsCount > 3)
+                    {
+                        <text>...</text>
+                        <br />
+                    }
+                    <a asp-action="Index" asp-controller="Employee" asp-route-DirectorId="@Model.Id">
+                        Подробнее
                     </a>
-                    <br />
+                }
+                else
+                {
+                    <span>Отстутствуют</span>
                 }
             </div>
         </dd>
@@ -28,14 +45,37 @@
                 @{
                     int headsCount = Model.DepartamentHeads.Count();
                 }
-                @for (int headsNumber = 0; headsNumber < headsCount; headsNumber++)
+                @if (headsCount != 0)
                 {
-                    <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.DepartamentHeads[headsNumber].Id">
-                        @(headsNumber+1). @Model.DepartamentHeads[headsNumber].FullName
+
+
+                    @for (int headsNumber = 0; headsNumber < Math.Min(headsCount, 3); headsNumber++)
+                    {
+                        <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.DepartamentHeads[headsNumber].Id">
+                            @(headsNumber+1). @Model.DepartamentHeads[headsNumber].FullName
+                        </a>
+                        <br />
+                    }
+                    @if (headsCount > 3)
+                    {
+                        <text>...</text>
+                        <br />
+                    }
+                    <a asp-action="Index" asp-controller="Employee" asp-route-DirectorId="@Model.Id">
+                        Подробнее
                     </a>
-                    <br />
+                }
+                else
+                {
+                    <span>Отстутствуют</span>
                 }
             </div>
         </dd>
     </dl>
+
+    <a asp-action="Edit" asp-controller="Employee" asp-route-id="@Model.Id" class="btn btn-outline-secondary btn-sm">Изменить</a>
+
+    <form asp-action="Delete" asp-controller="Employee" asp-route-id="@Model.Id">
+        <input type="submit" value="Удалить" class="btn btn-outline-danger btn-sm" />
+    </form>
 </div>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StaffAccounting.Models.Company.Attributes;
+using StaffAccounting.Models.Notation;
+using StaffAccounting.Models.Filtration;
 using StaffAccounting.Models.ViewProviders;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -26,6 +27,12 @@ namespace StaffAccounting.Models.Company
         {
             Manager = context.Managers.FirstOrDefault(manager => manager.Id == ManagerId);
             Rank = context.Ranks.FirstOrDefault(rank => rank.Id == RankId);
+        }
+
+        public override bool IsMatch(RelationFilterOption option)
+        {
+            return (option.ManagerId is not null && option.ManagerId  == ManagerId)
+                || (option.RankId is not null && option.RankId  == RankId);
         }
     }
 }

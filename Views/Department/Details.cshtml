@@ -10,12 +10,27 @@
                 @{
                     int headsCount = Model.Heads.Count();
                 }
-                @for (int headsNumber = 0; headsNumber < headsCount; headsNumber++)
+                @if (headsCount != 0)
                 {
-                    <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.Heads[headsNumber].Id">
-                        @(headsNumber+1). @Model.Heads[headsNumber].FullName
+                    @for (int headsNumber = 0; headsNumber < Math.Min(headsCount, 3); headsNumber++)
+                    {
+                        <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.Heads[headsNumber].Id">
+                            @(headsNumber+1). @Model.Heads[headsNumber].FullName
+                        </a>
+                        <br />
+                    }
+                    @if (headsCount > 3)
+                    {
+                        <text>...</text>
+                        <br />
+                    }
+                    <a asp-action="Index" asp-controller="Employee" asp-route-DepartmentId="@Model.Id">
+                        Подробнее
                     </a>
-                    <br />
+                }
+                else
+                {
+                    <span>Отстутствуют</span>
                 }
             </div>
         </dd>

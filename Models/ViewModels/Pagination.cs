@@ -3,6 +3,7 @@
 namespace StaffAccounting.Models.ViewModels
 {
     public class Pagination<TItems>
+        where TItems : class
     {
         public int PageSize { get; private set; }
         public int PageNumber
@@ -15,9 +16,9 @@ namespace StaffAccounting.Models.ViewModels
         public bool HasPreviousPage => _paging.HasPreviousPage;
 
         private readonly Paging _paging;
-        private readonly IQueryable<TItems> _source;
+        private readonly IEnumerable<TItems> _source;
 
-        public Pagination(IQueryable<TItems> collection, int pageSize)
+        public Pagination(IEnumerable<TItems> collection, int pageSize)
         {
             _source = collection;
             PageSize = pageSize;
@@ -26,6 +27,15 @@ namespace StaffAccounting.Models.ViewModels
 
         public List<TItems> GetItems()
         {
+            // if there is no filter parameters in controller
+            // for query optimisation
+            if (_source is DbSet<TItems>)
+            {
+                return _source.AsQueryable()
+                    .Skip((_paging.PageNumber - 1) * PageSize)
+                    .Take(PageSize)
+                    .ToList();
+            }
             return _source.Skip((_paging.PageNumber - 1) * PageSize)
                 .Take(PageSize)
                 .ToList();
@@ -33,9 +43,20 @@ namespace StaffAccounting.Models.ViewModels
 
         public async Task<List<TItems>> GetItemsAsync()
         {
-            return await _source.Skip((_paging.PageNumber - 1) * PageSize)
-                .Take(PageSize)
-                .ToListAsync();
+            // if there is no filter parameters in controller
+            // for query optimisation
+            if (_source is DbSet<TItems>)
+            {
+                return await _source.AsQueryable()
+                    .Skip((_paging.PageNumber - 1) * PageSize)
+                    .Take(PageSize)
+                    .ToListAsync();
+            }
+            return await Task.Run(() =>
+                    _source.Skip((_paging.PageNumber - 1) * PageSize)
+                        .Take(PageSize)
+                        .ToList()
+                );
         }
 
         public bool HasPage(int page) => _paging.IsCorrectPageNumber(page);

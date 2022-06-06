@@ -25,14 +25,35 @@
                 @{
                     int managersCount = Model.Managers.Count();
                 }
-                @for (int managerNumber = 0; managerNumber < managersCount; managerNumber++)
+                @if (managersCount != 0)
                 {
-                    <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.Managers[managerNumber].Id">
-                        @(managerNumber+1). @Model.Managers[managerNumber].FullName
+                    @for (int managerNumber = 0; managerNumber < Math.Min(managersCount, 3); managerNumber++)
+                    {
+                        <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.Managers[managerNumber].Id">
+                            @(managerNumber+1). @Model.Managers[managerNumber].FullName
+                        </a>
+                        <br />
+                    }
+                    @if (managersCount > 3)
+                    {
+                        <text>...</text>
+                        <br />
+                    }
+                    <a asp-action="Index" asp-controller="Employee" asp-route-DepartmentHeadId="@Model.Id">
+                        Подробнее
                     </a>
-                    <br />
+                }
+                else
+                {
+                    <span>Отстутствуют</span>
                 }
             </div>
         </dd>
     </dl>
+
+    <a asp-action="Edit" asp-controller="Employee" asp-route-id="@Model.Id" class="btn btn-outline-secondary btn-sm">Изменить</a>
+
+    <form asp-action="Delete" asp-controller="Employee" asp-route-id="@Model.Id">
+        <input type="submit" value="Удалить" class="btn btn-outline-danger btn-sm" />
+    </form>
 </div>

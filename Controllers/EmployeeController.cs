@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using StaffAccounting.Models;
 using StaffAccounting.Models.Company;
+using StaffAccounting.Models.Filtration;
 using StaffAccounting.Models.ViewModels;
 using StaffAccounting.Models.ViewProviders;
 using System.Diagnostics;
@@ -14,7 +15,7 @@ namespace StaffAccounting.Controllers
         private readonly CompanyContext _companyContext;
         private readonly EmployeeNotationFactory _factory;
         private readonly IViewProvider _viewProvider;
-
+        private const int _pageSize = 6;
         public EmployeeController(ILogger<EmployeeController> logger, CompanyContext companyContext)
         {
             _viewProvider = new ViewProvider();
@@ -23,21 +24,18 @@ namespace StaffAccounting.Controllers
             _factory = new EmployeeNotationFactory();
         }
 
-        public async Task<IActionResult> Index(int page=1)
+        public IActionResult Index(int page = 1,[FromQuery] string requiredNotation = null)
         {
             if (page < 0)
             {
                 return NotFound();
             }
-
             try
             {
-                Pagination<Employee> pagination = new(_companyContext.Employees, 6);
-                pagination.PageNumber = page;
-
-                return View(pagination);
+                IndexViewModel viewModel = new(_companyContext, page, Request.Query, requiredNotation);
+                return View(viewModel);
             }
-            catch (ArgumentOutOfRangeException)
+            catch (Exception)
             {
                 return NotFound();
             }
@@ -54,7 +52,7 @@ namespace StaffAccounting.Controllers
         [HttpGet]
         public IActionResult SelectType()
         {
-            List<string> notations = _factory.Notations.ToList();
+            List<string> notations = _factory.Provider.Notations.ToList();
             ViewBag.EmployeeTypeNames = notations;
             return View();
         }
@@ -71,30 +69,60 @@ namespace StaffAccounting.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAccountant(Accountant employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Create);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Create(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateDepartmentHead(DepartmentHead employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Create);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Create(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateDirector(Director employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Create);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Create(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateManager(Manager employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Create);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Create(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateWorker(Worker employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Create);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Create(employee);
         }
         #endregion Create
@@ -121,30 +149,60 @@ namespace StaffAccounting.Controllers
         [HttpPost]
         public async Task<IActionResult> EditAccountant(Accountant employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Update);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Update(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> EditDepartmentHead(DepartmentHead employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Update);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Update(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> EditDirector(Director employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Update);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Update(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> EditManager(Manager employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Update);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Update(employee);
         }
 
         [HttpPost]
         public async Task<IActionResult> EditWorker(Worker employee)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewResult view = employee.GetView(_viewProvider, HTTPActions.Update);
+                view.ViewData.Add("Company", _companyContext);
+                return view;
+            }
             return await Update(employee);
         }
         #endregion Edit
@@ -188,7 +246,7 @@ namespace StaffAccounting.Controllers
         [NonAction]
         private async Task<IActionResult> Create(Employee employee)
         {
-            _companyContext.Employees.Update(employee);
+            _companyContext.Employees.Add(employee);
             await _companyContext.SaveChangesAsync();
             return RedirectToAction("Index");
         }

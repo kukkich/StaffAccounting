@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StaffAccounting.Models.Filtration;
 using StaffAccounting.Models.ViewProviders;
 using System.ComponentModel.DataAnnotations;
 
 namespace StaffAccounting.Models.Company
 {
-    public abstract class Employee : IViewable, IDataJoinable
+    public abstract class Employee : IViewable, IDataJoinable, IFiltrable
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "Введите имя")]
@@ -33,5 +34,6 @@ namespace StaffAccounting.Models.Company
 
         public abstract ViewResult GetView(IViewProvider viewProvider, HTTPActions action);
         public abstract void JoinFromDatabase(CompanyContext context);
+        public abstract bool IsMatch(RelationFilterOption option);
     }
 }
