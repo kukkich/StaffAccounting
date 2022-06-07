@@ -3,6 +3,13 @@
 }
 @model IEnumerable<StaffAccounting.Models.Company.Project>
 
+<div class="form-inline form-group">
+    <a asp-action="Create" asp-controller="Project"
+       class="btn btn-outline-dark btn-sm">
+        Добавить
+    </a>
+</div>
+
 <table class="table">
     <tr>
         <td>Имя</td>
@@ -13,7 +20,13 @@
         <tr>
             <td>@project.Name</td>
             <td>
-                <a asp-action="Details" asp-controller="Project" asp-route-id="@project.Id">Подробнее</a> |
+                <div class="btn-group">
+                    <a asp-action="Details" asp-controller="Project" asp-route-id="@project.Id" class="btn btn-outline-info btn-sm">Подробнее</a>
+                    <a asp-action="Edit" asp-controller="Project" asp-route-id="@project.Id" class="btn btn-outline-secondary btn-sm">Изменить</a>
+                    <form asp-action="Delete" asp-controller="Project" asp-route-id="@project.Id">
+                        <input type="submit" value="Удалить" class="btn btn-outline-danger btn-sm" />
+                    </form>
+                </div>
             </td>
         </tr>
     }

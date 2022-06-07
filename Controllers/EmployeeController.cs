@@ -7,6 +7,11 @@ using StaffAccounting.Models.ViewModels;
 using StaffAccounting.Models.ViewProviders;
 using System.Diagnostics;
 
+// check query like this
+//Employee employee = (await _companyContext.Employees
+//                   .ToListAsync())
+//                   .FirstOrDefault(employee => employee.Id == id);
+// is ToList really need?
 namespace StaffAccounting.Controllers
 {
     public class EmployeeController : Controller
