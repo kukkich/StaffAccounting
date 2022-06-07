@@ -1,0 +1,16 @@
+﻿@using StaffAccounting.Models.Company
+@model Rank
+@{
+    ViewBag.Title = "Добавление департамента";
+}
+<form asp-action="Create" asp-controller="Rank">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Название</label>
+        <input type="text" asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name"></span>
+    </div>
+
+    <div class="col-12">
+        <input type="submit" value="Добавить" class="btn btn-outline-primary" />
+    </div>
+</form>

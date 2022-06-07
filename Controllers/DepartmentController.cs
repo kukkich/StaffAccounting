@@ -24,9 +24,8 @@ namespace StaffAccounting.Controllers
         {
             if (id != null)
             {
-                Department department = (await _companyContext.Departments
-                    .ToListAsync())
-                    .FirstOrDefault(department => department.Id == id);
+                Department department = await _companyContext.Departments
+                    .FirstOrDefaultAsync(department => department.Id == id);
 
                 if (department != null)
                 {

@@ -24,9 +24,8 @@ namespace StaffAccounting.Controllers
         {
             if (id != null)
             {
-                Rank rank = (await _companyContext.Ranks
-                    .ToListAsync())
-                    .FirstOrDefault(rank => rank.Id == id);
+                Rank rank = await _companyContext.Ranks
+                    .FirstOrDefaultAsync(rank => rank.Id == id);
                 if (rank != null)
                 {
                     await rank.JoinFromDatabaseAsync(_companyContext);
@@ -35,6 +34,69 @@ namespace StaffAccounting.Controllers
             }
 
             return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id != null)
+            {
+                Rank rank = await _companyContext.Ranks
+                    .FirstOrDefaultAsync(rank => rank.Id == id);
+                if (rank != null)
+                {
+                    rank.BeforeDeletion(_companyContext);
+                    _companyContext.Ranks.Remove(rank);
+                    await _companyContext.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+            }
+            return NotFound();
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Rank rank)
+        {
+            if (ModelState.IsValid)
+            {
+                _companyContext.Ranks.Add(rank);
+                await _companyContext.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(rank);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id != null)
+            {
+                Rank rank = await _companyContext.Ranks
+                    .FirstOrDefaultAsync(rank => rank.Id == id);
+                if (rank != null)
+                {
+                    return View(rank);
+                }
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(Rank rank)
+        {
+            if (ModelState.IsValid)
+            {
+                _companyContext.Ranks.Update(rank);
+                await _companyContext.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View("Edit", rank);
         }
     }
 }
