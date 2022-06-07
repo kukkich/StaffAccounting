@@ -10,55 +10,61 @@
         .OrderBy(director => director.LastName);
 }
 
-<h2>Глава департамента</h2>
+<div class="create-form">
 
-<form asp-action="EditDepartmentHead" asp-controller="Employee" asp-route-id="@Model.Id">
-    @await Html.PartialAsync("Edit/Employee", Model)
+    <h2>Глава департамента</h2>
 
-    <div class="form-group">
-        <label asp-for="DepartmentId" class="control-label">Департамент</label>
-        <select id="DepartmentId" asp-for="DepartmentId" class="form-control">
-            @if (Model.Department == null)
-            {
-                <option selected="selected" value=@null>Не выбрано</option>
-            }
-            else
-            {
-                <option selected="selected" value=@Model.DepartmentId>@Model.Department?.Name</option>
-                <option value=@null>Не выбрано</option>
-            }
-            @foreach (Department department in orderedDepartments)
-            {
-                if (department.Id != Model.DepartmentId)
-                {
-                    <option value=@department.Id>@department.Name</option>
-                }
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="DirectorId" class="control-label">Директор</label>
-        <select id="DirectorId" asp-for="DirectorId" class="form-control">
-            @if (Model.Director == null)
-            {
-                <option selected="selected" value=@null>Не выбрано</option>
-            }
-            else
-            {
-                <option selected="selected" value=@Model.DirectorId>@Model.Director?.FullName</option>
-                <option value=@null>Не выбрано</option>
-            }
-            @foreach (Director director in orderedDirectors)
-            {
-                if (director.Id != Model.DirectorId)
-                {
-                    <option value=@director.Id>@director.FullName</option>
-                }
-            }
-        </select>
-    </div>
-    
-    <div class="button-confirm">
-        <input type="submit" value="Сохранить" class="btn btn-outline-primary" />
-    </div>
-</form>
+    <form asp-action="EditDepartmentHead" asp-controller="Employee" asp-route-id="@Model.Id">
+
+        @await Html.PartialAsync("Edit/Employee", Model)
+
+        <div class="create-form__additional">
+            <div class="form-group create-form__additional_item">
+                <label asp-for="DepartmentId" class="control-label">Департамент</label>
+                <select id="DepartmentId" asp-for="DepartmentId" class="form-control">
+                    @if (Model.Department == null)
+                    {
+                        <option selected="selected" value=@null>Не выбрано</option>
+                    }
+                    else
+                    {
+                        <option selected="selected" value=@Model.DepartmentId>@Model.Department?.Name</option>
+                        <option value=@null>Не выбрано</option>
+                    }
+                    @foreach (Department department in orderedDepartments)
+                    {
+                        if (department.Id != Model.DepartmentId)
+                        {
+                            <option value=@department.Id>@department.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group create-form__additional_item">
+                <label asp-for="DirectorId" class="control-label">Директор</label>
+                <select id="DirectorId" asp-for="DirectorId" class="form-control">
+                    @if (Model.Director == null)
+                    {
+                        <option selected="selected" value=@null>Не выбрано</option>
+                    }
+                    else
+                    {
+                        <option selected="selected" value=@Model.DirectorId>@Model.Director?.FullName</option>
+                        <option value=@null>Не выбрано</option>
+                    }
+                    @foreach (Director director in orderedDirectors)
+                    {
+                        if (director.Id != Model.DirectorId)
+                        {
+                            <option value=@director.Id>@director.FullName</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="button-confirm">
+            <input type="submit" value="Сохранить" class="btn btn-outline-primary" />
+        </div>
+    </form>
+</div>
