@@ -18,5 +18,29 @@ body {
 }
 
 .button-confirm {
-    margin: 8px 0px 15px 0px;
+    margin: 12px 0px 15px 0px;
 }
+
+.create-form {
+    max-width: 960px;
+    width: 100%;
+    padding-right: 100px;
+    padding-left: 15px;
+}
+
+.create-form__full-name{
+   padding: 5px;
+}
+
+.create-form__additional {
+    padding: 0px 60% 1px 10px;
+    margin-bottom: 8px;
+}
+
+.create-form__additional_item {
+    margin-bottom: 13px;
+}
+
+/*.create-form__full-name_middle-name {
+    padding: 0px 20% 0px 0px;
+}*/
