@@ -13,7 +13,7 @@ namespace StaffAccounting.Models.Company
         public int? DirectorId { get; set; }
         public Director Director { get; set; }
 
-        public override bool CanBeRised => true;
+        public override bool CanBeRaised => true;
 
         public Accountant() { }
 
@@ -35,7 +35,7 @@ namespace StaffAccounting.Models.Company
         public override Employee GetRisedEmployee()
         {
             Employee raised = new Director();
-            FillRised(raised);
+            FillRaised(raised);
             return raised;
         }
     }

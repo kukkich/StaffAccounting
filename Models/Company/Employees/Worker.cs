@@ -16,7 +16,7 @@ namespace StaffAccounting.Models.Company
         public int? RankId { get; set; }
         public Rank Rank { get; set; }
 
-        public override bool CanBeRised => throw new NotImplementedException();
+        public override bool CanBeRaised => true;
 
         public Worker() { }
 
@@ -40,7 +40,7 @@ namespace StaffAccounting.Models.Company
         public override Employee GetRisedEmployee()
         {
             Employee raised = new Manager();
-            FillRised(raised);
+            FillRaised(raised);
             return raised;
         }
     }

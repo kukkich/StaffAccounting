@@ -2,7 +2,14 @@
 @{
     ViewBag.Title = Model.FullName;
 }
-
+@if (Model.CanBeRaised)
+{
+    <h3>
+        <form asp-action="Raise" asp-controller="Employee" asp-route-id="@Model.Id">
+            <input type="submit" value="Повысить" class="btn btn-outline-info btn-sm" />
+        </form>
+    </h3>
+}
 <h2>@Model.FullName</h2>
 <div>
     <dl class="dl-horizontal">

@@ -29,7 +29,7 @@ namespace StaffAccounting.Models.Company
                 return age;
             }
         }
-        public abstract bool CanBeRised { get; } 
+        public abstract bool CanBeRaised { get; } 
 
         protected Employee() { }
 
@@ -38,9 +38,9 @@ namespace StaffAccounting.Models.Company
         public abstract bool IsMatch(RelationFilterOption option);
         public abstract Employee GetRisedEmployee();
 
-        protected void FillRised(Employee risedEmployee)
+        protected void FillRaised(Employee risedEmployee)
         {
-            risedEmployee.Id = Id;
+            risedEmployee.Id = default;
             risedEmployee.FirstName = FirstName;
             risedEmployee.MiddleName = MiddleName;
             risedEmployee.LastName = LastName;

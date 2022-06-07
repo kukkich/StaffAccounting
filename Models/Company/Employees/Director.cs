@@ -13,7 +13,7 @@ namespace StaffAccounting.Models.Company
         public List<Accountant> Accountants { get; set; } = new();
         public List<DepartmentHead> DepartamentHeads { get; set; } = new();
 
-        public override bool CanBeRised => false;
+        public override bool CanBeRaised => false;
 
         public Director() { }
 

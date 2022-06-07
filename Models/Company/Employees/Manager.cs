@@ -18,7 +18,7 @@ namespace StaffAccounting.Models.Company
 
         public List<Worker> Workers { get; set; } = new();
 
-        public override bool CanBeRised => true;
+        public override bool CanBeRaised => true;
 
         public Manager() { }
 
@@ -42,7 +42,7 @@ namespace StaffAccounting.Models.Company
         public override Employee GetRisedEmployee()
         {
             Employee raised = new DepartmentHead();
-            FillRised(raised);
+            FillRaised(raised);
             return raised;
         }
     }
