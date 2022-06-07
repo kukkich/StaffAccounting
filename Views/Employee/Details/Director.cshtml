@@ -43,7 +43,7 @@
         <dd>
             <div class="items-collection">
                 @{
-                    int headsCount = Model.DepartamentHeads.Count();
+                    int headsCount = Model.DepartmentHeads.Count();
                 }
                 @if (headsCount != 0)
                 {
@@ -51,8 +51,8 @@
 
                     @for (int headsNumber = 0; headsNumber < Math.Min(headsCount, 3); headsNumber++)
                     {
-                        <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.DepartamentHeads[headsNumber].Id">
-                            @(headsNumber+1). @Model.DepartamentHeads[headsNumber].FullName
+                        <a asp-action="Details" asp-controller="Employee" asp-route-id="@Model.DepartmentHeads[headsNumber].Id">
+                            @(headsNumber+1). @Model.DepartmentHeads[headsNumber].FullName
                         </a>
                         <br />
                     }

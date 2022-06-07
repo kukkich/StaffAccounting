@@ -24,7 +24,7 @@ namespace StaffAccounting.Controllers
             _factory = new EmployeeNotationFactory();
         }
 
-        public IActionResult Index(int page = 1,[FromQuery] string requiredNotation = null)
+        public IActionResult Index(int page = 1, [FromQuery] string requiredNotation = null)
         {
             if (page < 0)
             {
@@ -207,6 +207,27 @@ namespace StaffAccounting.Controllers
         }
         #endregion Edit
 
+        [HttpPost]
+        public async Task<IActionResult> Raise(int? id)
+        {
+            if (id != null)
+            {
+                Employee employee = await _companyContext.Employees.FirstOrDefaultAsync(employee => employee.Id == id);
+                if (employee != null && employee.CanBeRaised)
+                {
+                    Employee raised = employee.GetRisedEmployee();
+                    employee.BeforeDeletion(_companyContext);
+
+                    _companyContext.Employees.Remove(employee);
+                    _companyContext.Employees.Add(raised);
+                    await _companyContext.SaveChangesAsync();
+                    
+                    return await Details(raised.Id);
+                }
+            }
+            return NotFound();
+        }
+
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
@@ -235,6 +256,7 @@ namespace StaffAccounting.Controllers
                 Employee employee = await _companyContext.Employees.FirstOrDefaultAsync(employee => employee.Id == id);
                 if (employee != null)
                 {
+                    employee.BeforeDeletion(_companyContext);
                     _companyContext.Employees.Remove(employee);
                     await _companyContext.SaveChangesAsync();
                     return RedirectToAction("Index");

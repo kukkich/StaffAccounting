@@ -16,6 +16,8 @@ namespace StaffAccounting.Models.Company
         public int? RankId { get; set; }
         public Rank Rank { get; set; }
 
+        public override bool CanBeRaised => true;
+
         public Worker() { }
 
         public override ViewResult GetView(IViewProvider viewProvider, HTTPActions action)
@@ -34,5 +36,14 @@ namespace StaffAccounting.Models.Company
             return (option.ManagerId is not null && option.ManagerId  == ManagerId)
                 || (option.RankId is not null && option.RankId  == RankId);
         }
+
+        public override Employee GetRisedEmployee()
+        {
+            Employee raised = new Manager();
+            FillRaised(raised);
+            return raised;
+        }
+
+        protected override void UnlinkRelatedEntities() { }
     }
 }

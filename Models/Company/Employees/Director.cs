@@ -11,7 +11,9 @@ namespace StaffAccounting.Models.Company
     public class Director : Employee
     {
         public List<Accountant> Accountants { get; set; } = new();
-        public List<DepartmentHead> DepartamentHeads { get; set; } = new();
+        public List<DepartmentHead> DepartmentHeads { get; set; } = new();
+
+        public override bool CanBeRaised => false;
 
         public Director() { }
 
@@ -23,5 +25,16 @@ namespace StaffAccounting.Models.Company
         public override void JoinFromDatabase(CompanyContext context) { }
 
         public override bool IsMatch(RelationFilterOption option) => false;
+
+        public override Employee GetRisedEmployee()
+        {
+            throw new InvalidOperationException();
+        }
+
+        protected override void UnlinkRelatedEntities()
+        {
+            foreach (Accountant accountant in Accountants) accountant.DirectorId = null;
+            foreach (DepartmentHead departmentHead in DepartmentHeads) departmentHead.DirectorId = null;
+        }
     }
 }

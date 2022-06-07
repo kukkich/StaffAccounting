@@ -13,6 +13,8 @@ namespace StaffAccounting.Models.Company
         public int? DirectorId { get; set; }
         public Director Director { get; set; }
 
+        public override bool CanBeRaised => true;
+
         public Accountant() { }
 
         public override ViewResult GetView(IViewProvider viewProvider, HTTPActions action)
@@ -29,7 +31,14 @@ namespace StaffAccounting.Models.Company
         {
             return option.DirectorId is not null && option.DirectorId == DirectorId; 
         }
+
+        public override Employee GetRisedEmployee()
+        {
+            Employee raised = new Director();
+            FillRaised(raised);
+            return raised;
+        }
+
+        protected override void UnlinkRelatedEntities() { }
     }
 }
-
-

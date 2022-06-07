@@ -18,6 +18,8 @@ namespace StaffAccounting.Models.Company
 
         public List<Worker> Workers { get; set; } = new();
 
+        public override bool CanBeRaised => true;
+
         public Manager() { }
 
         public override ViewResult GetView(IViewProvider viewProvider, HTTPActions action)
@@ -29,12 +31,25 @@ namespace StaffAccounting.Models.Company
         {
             Project = context.Projects.FirstOrDefault(project => project.Id == ProjectId);
             DepartmentHead = context.DepartmentHeads.FirstOrDefault(departmentHead => departmentHead.Id == DepartmentHeadId);
+            Workers = context.Workers.Where(worker => worker.ManagerId == Id).ToList();
         }
 
         public override bool IsMatch(RelationFilterOption option)
         {
             return (option.DepartmentHeadId is not null && option.DepartmentHeadId == DepartmentHeadId)
                 || (option.ProjectId is not null && option.ProjectId == ProjectId);
+        }
+
+        public override Employee GetRisedEmployee()
+        {
+            Employee raised = new DepartmentHead();
+            FillRaised(raised);
+            return raised;
+        }
+
+        protected override void UnlinkRelatedEntities()
+        {
+            foreach (Worker worker in Workers) worker.ManagerId = null;
         }
     }
 }

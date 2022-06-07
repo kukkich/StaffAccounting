@@ -29,11 +29,30 @@ namespace StaffAccounting.Models.Company
                 return age;
             }
         }
+        public abstract bool CanBeRaised { get; } 
 
         protected Employee() { }
+
+        public void BeforeDeletion(CompanyContext context)
+        {
+            JoinFromDatabase(context);
+            UnlinkRelatedEntities();
+        }
 
         public abstract ViewResult GetView(IViewProvider viewProvider, HTTPActions action);
         public abstract void JoinFromDatabase(CompanyContext context);
         public abstract bool IsMatch(RelationFilterOption option);
+        public abstract Employee GetRisedEmployee();
+
+        protected abstract void UnlinkRelatedEntities();
+        protected void FillRaised(Employee risedEmployee)
+        {
+            risedEmployee.Id = default;
+            risedEmployee.FirstName = FirstName;
+            risedEmployee.MiddleName = MiddleName;
+            risedEmployee.LastName = LastName;
+            risedEmployee.Sex = Sex;
+            risedEmployee.Birthday = Birthday;
+        }
     }
 }
