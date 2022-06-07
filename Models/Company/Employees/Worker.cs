@@ -43,5 +43,7 @@ namespace StaffAccounting.Models.Company
             FillRaised(raised);
             return raised;
         }
+
+        protected override void UnlinkRelatedEntities() { }
     }
 }

@@ -23,15 +23,6 @@ namespace StaffAccounting.Models.Company
             //FillDataBase();
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Manager>()
-               .HasMany(m => m.Workers)
-               .WithOne(w => w.Manager)
-               .OnDelete(DeleteBehavior.ClientCascade);
-        }
-
         private void FillDataBase()
         {
             Department devDepartment = new() { Name = "Разработка" };

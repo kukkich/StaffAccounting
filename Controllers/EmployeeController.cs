@@ -216,10 +216,12 @@ namespace StaffAccounting.Controllers
                 if (employee != null && employee.CanBeRaised)
                 {
                     Employee raised = employee.GetRisedEmployee();
-                    employee.JoinFromDatabase(_companyContext);
+                    employee.BeforeDeletion(_companyContext);
+
                     _companyContext.Employees.Remove(employee);
                     _companyContext.Employees.Add(raised);
                     await _companyContext.SaveChangesAsync();
+                    
                     return await Details(raised.Id);
                 }
             }
@@ -254,6 +256,7 @@ namespace StaffAccounting.Controllers
                 Employee employee = await _companyContext.Employees.FirstOrDefaultAsync(employee => employee.Id == id);
                 if (employee != null)
                 {
+                    employee.BeforeDeletion(_companyContext);
                     _companyContext.Employees.Remove(employee);
                     await _companyContext.SaveChangesAsync();
                     return RedirectToAction("Index");

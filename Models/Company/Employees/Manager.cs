@@ -31,6 +31,7 @@ namespace StaffAccounting.Models.Company
         {
             Project = context.Projects.FirstOrDefault(project => project.Id == ProjectId);
             DepartmentHead = context.DepartmentHeads.FirstOrDefault(departmentHead => departmentHead.Id == DepartmentHeadId);
+            Workers = context.Workers.Where(worker => worker.ManagerId == Id).ToList();
         }
 
         public override bool IsMatch(RelationFilterOption option)
@@ -44,6 +45,11 @@ namespace StaffAccounting.Models.Company
             Employee raised = new DepartmentHead();
             FillRaised(raised);
             return raised;
+        }
+
+        protected override void UnlinkRelatedEntities()
+        {
+            foreach (Worker worker in Workers) worker.ManagerId = null;
         }
     }
 }
