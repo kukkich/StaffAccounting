@@ -48,7 +48,6 @@ namespace StaffAccounting.Controllers
         }
 
         #region Create
-        // TODO concatinate in one Get method
         [HttpGet]
         public IActionResult SelectType()
         {

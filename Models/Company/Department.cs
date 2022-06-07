@@ -1,8 +1,11 @@
-﻿namespace StaffAccounting.Models.Company
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace StaffAccounting.Models.Company
 {
-    public class Department
+    public class Department : IDataJoinable
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Введите название")]
         public string Name { get; set; } = null!;
 
         public List<DepartmentHead> Heads { get; set; } = new();
@@ -14,5 +17,16 @@
 
         public Task JoinFromDatabaseAsync(CompanyContext context)
             => Task.Run(() => JoinFromDatabase(context));
+
+        public void BeforeDeletion(CompanyContext context)
+        {
+            JoinFromDatabase(context);
+            UnlinkRelatedEntities();
+        }
+
+        private void UnlinkRelatedEntities()
+        {
+            foreach (DepartmentHead head in Heads) head.DepartmentId = null;
+        }
     }
 }
