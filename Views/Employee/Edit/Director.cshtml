@@ -6,7 +6,7 @@
 <form asp-action="EditDirector" asp-controller="Employee" asp-route-id="@Model.Id">
     @await Html.PartialAsync("Edit/Employee", Model)
 
-    <div class="col-12">
+    <div class="button-confirm">
         <input type="submit" value="Сохранить" class="btn btn-outline-primary" />
     </div>
 </form>

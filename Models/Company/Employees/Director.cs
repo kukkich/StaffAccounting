@@ -22,7 +22,11 @@ namespace StaffAccounting.Models.Company
             return viewProvider.Director(this, action);
         }
 
-        public override void JoinFromDatabase(CompanyContext context) { }
+        public override void JoinFromDatabase(CompanyContext context) 
+        {
+            Accountants = context.Accountants.Where(accountants => accountants.DirectorId == Id).ToList();
+            DepartmentHeads = context.DepartmentHeads.Where(head => head.DirectorId == Id).ToList();
+        }
 
         public override bool IsMatch(RelationFilterOption option) => false;
 

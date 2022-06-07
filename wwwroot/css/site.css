@@ -16,3 +16,7 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.button-confirm {
+    margin: 8px 0px 15px 0px;
+}

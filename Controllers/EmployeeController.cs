@@ -7,11 +7,6 @@ using StaffAccounting.Models.ViewModels;
 using StaffAccounting.Models.ViewProviders;
 using System.Diagnostics;
 
-// check query like this
-//Employee employee = (await _companyContext.Employees
-//                   .ToListAsync())
-//                   .FirstOrDefault(employee => employee.Id == id);
-// is ToList really need?
 namespace StaffAccounting.Controllers
 {
     public class EmployeeController : Controller
@@ -216,7 +211,8 @@ namespace StaffAccounting.Controllers
         {
             if (id != null)
             {
-                Employee employee = await _companyContext.Employees.FirstOrDefaultAsync(employee => employee.Id == id);
+                Employee employee = await _companyContext.Employees
+                    .FirstOrDefaultAsync(employee => employee.Id == id);
                 if (employee != null && employee.CanBeRaised)
                 {
                     Employee raised = employee.GetRisedEmployee();
@@ -237,9 +233,8 @@ namespace StaffAccounting.Controllers
         {
             if (id != null)
             {
-                Employee employee = (await _companyContext.Employees
-                    .ToListAsync())
-                    .FirstOrDefault(employee => employee.Id == id);
+                Employee employee = await _companyContext.Employees
+                    .FirstOrDefaultAsync(employee => employee.Id == id);
 
                 if (employee != null)
                 {
@@ -257,7 +252,8 @@ namespace StaffAccounting.Controllers
         {
             if (id != null)
             {
-                Employee employee = await _companyContext.Employees.FirstOrDefaultAsync(employee => employee.Id == id);
+                Employee employee = await _companyContext.Employees
+                    .FirstOrDefaultAsync(employee => employee.Id == id);
                 if (employee != null)
                 {
                     employee.BeforeDeletion(_companyContext);

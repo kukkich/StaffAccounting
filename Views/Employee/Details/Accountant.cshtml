@@ -14,12 +14,12 @@
         </dd>
     </dl>
 
-    <a asp-action="Edit" asp-controller="Employee" asp-route-id="@Model.Id" 
-        class="btn btn-outline-secondary btn-sm">
+    <a asp-action="Edit" asp-controller="Employee" asp-route-id="@Model.Id"
+       class="btn btn-outline-secondary btn-sm">
         Изменить
     </a>
 
     <form asp-action="Delete" asp-controller="Employee" asp-route-id="@Model.Id">
-        <input type="submit" value="Удалить" class="btn btn-outline-danger btn-sm" />
+        <input type="submit" value="Удалить" class="btn btn-outline-danger btn-sm button-confirm" />
     </form>
 </div>

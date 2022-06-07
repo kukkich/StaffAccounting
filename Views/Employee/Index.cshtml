@@ -16,19 +16,21 @@
                 <option>@type</option>
             }
         </select>
- 
-        <input type="submit" value="Отфильтровать" class="btn btn-outline-primary" />
+    
+        <div class="button-confirm">
+            <input type="submit" value="Отфильтровать" class="btn btn-outline-primary" />
+        </div>
     </div>
 </form>
 
-<table class="table">
-    <tr>
+<table class="table table-striped table-sm">
+    <thead>
         <td>Id</td>
         <td>ФИО</td>
         <td>Лет</td>
         <td>Пол</td>
         <td>Действия</td>
-    </tr>
+    </thead>
     @foreach (var employee in await employeeTask)
     {
         <tr>
@@ -44,7 +46,6 @@
                         <input type="submit" value="Удалить" class="btn btn-outline-danger btn-sm" />
                     </form>
                 </div>
-
             </td>
         </tr>
     }
