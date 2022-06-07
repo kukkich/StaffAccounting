@@ -1,14 +1,18 @@
 ﻿@using StaffAccounting.Models.Company
 @model Rank
 
-<form asp-action="Update" asp-controller="Rank" asp-route-id="@Model.Id">
-    <div class="form-group">
-        <label asp-for="Name" class="control-label">Название</label>
-        <input type="text" asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name"></span>
-    </div>
+<div class="create-form">
+    <form asp-action="Update" asp-controller="Rank" asp-route-id="@Model.Id">
+        <div class="row">
+            <div class="form-group col-md-8 order-md-1">
+                <label asp-for="Name" class="control-label">Название</label>
+                <input type="text" asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name"></span>
+            </div>
+        </div>
 
-    <div class="col-12">
-        <input type="submit" value="Сохранить" class="btn btn-outline-primary button-confirm" />
-    </div>
-</form>
+        <div class="col-12">
+            <input type="submit" value="Сохранить" class="btn btn-outline-primary button-confirm" />
+        </div>
+    </form>
+</div>
