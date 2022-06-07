@@ -3,18 +3,11 @@
 }
 @model IEnumerable<StaffAccounting.Models.Company.Department>
 
-<div class="form-inline form-group button-confirm">
-    <a asp-action="Create" asp-controller="Department" 
-        class="btn btn-outline-dark btn-sm">
-        Добавить
-    </a>
-</div>
-
-<table class="table">
-    <tr>
+<table class="table table-striped table-sm">
+    <thead>
         <td>Имя</td>
         <td>Действия</td>
-    </tr>
+    </thead>
     @foreach (var department in Model)
     {
         <tr>
@@ -31,3 +24,10 @@
         </tr>
     }
 </table>
+
+<div class="form-inline form-group button-confirm">
+    <a asp-action="Create" asp-controller="Department" 
+        class="btn btn-outline-dark btn-sm">
+        Добавить
+    </a>
+</div>
