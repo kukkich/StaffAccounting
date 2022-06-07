@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using StaffAccounting.Models.Company;
 using StaffAccounting.Models.Filtration;
+using StaffAccounting.Models.ViewModels.StyleProvider;
+
 namespace StaffAccounting
 {
     public class Program
@@ -9,7 +11,9 @@ namespace StaffAccounting
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
             builder.Services.AddControllersWithViews();
+            builder.Services.AddTransient<IOptionsStyleProvider, TableOptionsStyleProvider>();
             builder.Services.AddDbContext<CompanyContext>(options =>
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
             );

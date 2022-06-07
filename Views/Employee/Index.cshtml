@@ -1,9 +1,11 @@
 ﻿@using StaffAccounting.Models.ViewModels
 @using StaffAccounting.Models.Company
+@using StaffAccounting.Models.ViewModels.StyleProvider
 @model IndexViewModel
 @{
     ViewData["Title"] = "Home Page";
     var employeeTask = Model.Pagination.GetItemsAsync();
+    
 }
 
 <form method="get">
@@ -31,6 +33,7 @@
         <td>Пол</td>
         <td>Действия</td>
     </thead>
+    @inject IOptionsStyleProvider optionsStyleProvider
     @foreach (var employee in await employeeTask)
     {
         <tr>
@@ -40,17 +43,31 @@
             <td>@employee.Sex</td>
             <td>
                 <div class="btn-group">
-                    <a asp-action="Details" asp-controller="Employee" asp-route-id="@employee.Id" class="btn btn-outline-info btn-sm">Подробнее</a>
-                    <a asp-action="Edit" asp-controller="Employee" asp-route-id="@employee.Id" class="btn btn-outline-secondary btn-sm">Изменить</a>
-                    <form asp-action="Delete" asp-controller="Employee" asp-route-id="@employee.Id">
-                        <input type="submit" value="Удалить" class="btn btn-outline-danger btn-sm" />
+                    <a asp-action="Details" asp-controller="Employee" asp-route-id="@employee.Id" 
+                        class=@optionsStyleProvider.Details>
+                        Подробнее
+                    </a>
+                    <a asp-action="Edit" asp-controller="Employee" asp-route-id="@employee.Id" 
+                        class=@optionsStyleProvider.Edit>
+                        Изменить
+                    </a>
+                    <form id="deteleForm" asp-action="Delete" asp-controller="Employee" asp-route-id="@employee.Id">
+                        @*
+                            such oddity is needed to apply the style. 
+                            Otherwise, the optionsStyleProvider.Delete style is not applied
+                        *@
+                        <a asp-action="" onclick="document.getElementById('deteleForm').submit(); return false;" 
+                            class=@optionsStyleProvider.Delete>
+                            Удалить
+                        </a>
                     </form>
                 </div>
             </td>
         </tr>
+
+        optionsStyleProvider.SetNext();
     }
 </table>
-
 <nav aria-label="Page navigation example">
     <ul class="pagination">
         @if (Model.Pagination.HasPreviousPage)
