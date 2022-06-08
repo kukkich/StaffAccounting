@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using StaffAccounting.Models;
 using StaffAccounting.Models.Company;
-using StaffAccounting.Models.Filtration;
 using StaffAccounting.Models.ViewModels;
 using StaffAccounting.Models.ViewProviders;
 using System.Diagnostics;
@@ -222,7 +221,7 @@ namespace StaffAccounting.Controllers
                     _companyContext.Employees.Remove(employee);
                     _companyContext.Employees.Add(raised);
                     await _companyContext.SaveChangesAsync();
-                    
+
                     return await Details(raised.Id);
                 }
             }

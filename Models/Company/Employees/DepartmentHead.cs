@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StaffAccounting.Models.Notation;
 using StaffAccounting.Models.Filtration;
+using StaffAccounting.Models.Notation;
 using StaffAccounting.Models.ViewProviders;
 using System.ComponentModel.DataAnnotations.Schema;
 

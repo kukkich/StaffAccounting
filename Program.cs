@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using StaffAccounting.Models.Company;
-using StaffAccounting.Models.Filtration;
 using StaffAccounting.Models.ViewModels.StyleProvider;
 
 namespace StaffAccounting

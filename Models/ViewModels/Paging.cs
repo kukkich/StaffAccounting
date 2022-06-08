@@ -2,10 +2,11 @@
 {
     public class Paging
     {
-        public int PageNumber 
+        public int PageNumber
         {
-            get => _pageNumber; 
-            set {
+            get => _pageNumber;
+            set
+            {
                 if (!IsCorrectPageNumber(value))
                     throw new ArgumentOutOfRangeException(nameof(value));
                 _pageNumber = value;

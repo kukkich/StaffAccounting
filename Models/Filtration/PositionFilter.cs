@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using StaffAccounting.Models.Company;
+﻿using StaffAccounting.Models.Company;
 using StaffAccounting.Models.Notation;
 using System.Reflection;
 

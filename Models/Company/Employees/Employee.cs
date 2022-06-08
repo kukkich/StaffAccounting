@@ -29,7 +29,7 @@ namespace StaffAccounting.Models.Company
                 return age;
             }
         }
-        public abstract bool CanBeRaised { get; } 
+        public abstract bool CanBeRaised { get; }
 
         protected Employee() { }
 

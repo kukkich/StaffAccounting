@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StaffAccounting.Models.Notation;
 using StaffAccounting.Models.Filtration;
+using StaffAccounting.Models.Notation;
 using StaffAccounting.Models.ViewProviders;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -22,7 +22,7 @@ namespace StaffAccounting.Models.Company
             return viewProvider.Director(this, action);
         }
 
-        public override void JoinFromDatabase(CompanyContext context) 
+        public override void JoinFromDatabase(CompanyContext context)
         {
             Accountants = context.Accountants.Where(accountants => accountants.DirectorId == Id).ToList();
             DepartmentHeads = context.DepartmentHeads.Where(head => head.DirectorId == Id).ToList();

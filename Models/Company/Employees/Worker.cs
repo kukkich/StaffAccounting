@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StaffAccounting.Models.Notation;
 using StaffAccounting.Models.Filtration;
+using StaffAccounting.Models.Notation;
 using StaffAccounting.Models.ViewProviders;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -33,8 +33,8 @@ namespace StaffAccounting.Models.Company
 
         public override bool IsMatch(RelationFilterOption option)
         {
-            return (option.ManagerId is not null && option.ManagerId  == ManagerId)
-                || (option.RankId is not null && option.RankId  == RankId);
+            return (option.ManagerId is not null && option.ManagerId == ManagerId)
+                || (option.RankId is not null && option.RankId == RankId);
         }
 
         public override Employee GetRisedEmployee()

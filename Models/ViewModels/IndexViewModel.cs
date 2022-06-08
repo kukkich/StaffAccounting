@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Primitives;
-using StaffAccounting.Models.Company;
+﻿using StaffAccounting.Models.Company;
 using StaffAccounting.Models.Filtration;
 using StaffAccounting.Models.Notation;
 
@@ -15,7 +13,7 @@ namespace StaffAccounting.Models.ViewModels
 
         private const int _pageSize = 10;
 
-        public IndexViewModel (CompanyContext context, int page, IQueryCollection query, string requiredNotation)
+        public IndexViewModel(CompanyContext context, int page, IQueryCollection query, string requiredNotation)
         {
             QueryData = query.ToDictionary(x => x.Key, x => (string)x.Value);
 

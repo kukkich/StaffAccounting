@@ -9,7 +9,7 @@
         public int? DirectorId;
         public int? ManagerId;
 
-        public RelationFilterOption (IQueryCollection query)
+        public RelationFilterOption(IQueryCollection query)
         {
             DepartmentId = TryParseInt(query[nameof(DepartmentId)]);
             ProjectId = TryParseInt(query[nameof(ProjectId)]);
