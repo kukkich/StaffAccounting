@@ -40,6 +40,7 @@ namespace StaffAccounting.Models.Filtration
                         return false;
                     }
                 ).ToList();
+
             if (requiredNotation == null)
             {
                 _employeesContext = employeeContexts.First(p =>

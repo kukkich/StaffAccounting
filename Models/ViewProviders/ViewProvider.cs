@@ -6,7 +6,7 @@ namespace StaffAccounting.Models.ViewProviders
     [NonController]
     public class ViewProvider : Controller, IViewProvider
     {
-        private readonly Dictionary<HTTPActions, string> _pathsByHttpAction = new Dictionary<HTTPActions, string>
+        private readonly Dictionary<HTTPActions, string> _pathsByHttpAction = new()
         {
             [HTTPActions.Read] = "Details",
             [HTTPActions.Create] = "Create",

@@ -15,6 +15,7 @@ namespace StaffAccounting.Models.ViewModels
         public bool HasNextPage => _paging.HasNextPage;
         public bool HasPreviousPage => _paging.HasPreviousPage;
 
+        private int HowManySkip => (_paging.PageNumber - 1) * PageSize;
         private readonly Paging _paging;
         private readonly IEnumerable<TItems> _source;
 
@@ -31,12 +32,14 @@ namespace StaffAccounting.Models.ViewModels
             // for query optimisation
             if (_source is DbSet<TItems>)
             {
-                return _source.AsQueryable()
-                    .Skip((_paging.PageNumber - 1) * PageSize)
+                return _source
+                    .AsQueryable()
+                    .Skip(HowManySkip)
                     .Take(PageSize)
                     .ToList();
             }
-            return _source.Skip((_paging.PageNumber - 1) * PageSize)
+            return _source
+                .Skip(HowManySkip)
                 .Take(PageSize)
                 .ToList();
         }
@@ -47,13 +50,15 @@ namespace StaffAccounting.Models.ViewModels
             // for query optimisation
             if (_source is DbSet<TItems>)
             {
-                return await _source.AsQueryable()
-                    .Skip((_paging.PageNumber - 1) * PageSize)
+                return await _source
+                    .AsQueryable()
+                    .Skip(HowManySkip)
                     .Take(PageSize)
                     .ToListAsync();
             }
             return await Task.Run(() =>
-                    _source.Skip((_paging.PageNumber - 1) * PageSize)
+                    _source
+                        .Skip(HowManySkip)
                         .Take(PageSize)
                         .ToList()
                 );

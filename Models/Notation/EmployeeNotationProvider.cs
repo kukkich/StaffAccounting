@@ -12,7 +12,9 @@ namespace StaffAccounting.Models.Notation
 
         public EmployeeNotationProvider()
         {
-            _employeeTypes = Assembly.GetAssembly(typeof(Employee))?.GetTypes()
+            _employeeTypes = Assembly
+                .GetAssembly(typeof(Employee))
+                ?.GetTypes()
                 .Where(type =>
                     type.IsSubclassOf(typeof(Employee)) &&
                     type.GetCustomAttribute<NotationAttribute>() != null
@@ -34,6 +36,7 @@ namespace StaffAccounting.Models.Notation
             _employeeTypes.First(type =>
                     type.GetCustomAttribute<NotationAttribute>()?.Name == notation
                    );
+
         public Type TryGetTybeByNotation(string notation) =>
             _employeeTypes.FirstOrDefault(type =>
                     type.GetCustomAttribute<NotationAttribute>()?.Name == notation

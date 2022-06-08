@@ -8,7 +8,7 @@ namespace StaffAccounting.Models.ViewModels.StyleProvider
         public string Edit => _currentStyle.Edit;
         public string Delete => _currentStyle.Delete;
 
-        private IOptionStyle _currentStyle;
+        private IIterableOptionStyle _currentStyle;
 
         public TableOptionsStyleProvider()
         {

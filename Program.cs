@@ -10,12 +10,7 @@ namespace StaffAccounting
         {
             var builder = WebApplication.CreateBuilder(args);
 
-
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddTransient<IOptionsStyleProvider, TableOptionsStyleProvider>();
-            builder.Services.AddDbContext<CompanyContext>(options =>
-                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
-            );
+            ConfigureServices(builder);
 
             var app = builder.Build();
 
@@ -37,6 +32,15 @@ namespace StaffAccounting
             );
 
             app.Run();
+        }
+
+        private static void ConfigureServices(WebApplicationBuilder builder)
+        {
+            builder.Services.AddControllersWithViews();
+            builder.Services.AddTransient<IOptionsStyleProvider, TableOptionsStyleProvider>();
+            builder.Services.AddDbContext<CompanyContext>(options =>
+                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
+            );
         }
     }
 }

@@ -1,10 +1,9 @@
-﻿namespace StaffAccounting.Models.ViewModels.StyleProvider
+﻿using StaffAccounting.Models.ViewModels.StyleProvider.Styles;
+
+namespace StaffAccounting.Models.ViewModels.StyleProvider
 {
-    public interface IOptionsStyleProvider
+    public interface IOptionsStyleProvider : IOptionStyle
     {
-        public string Details { get; }
-        public string Edit { get; }
-        public string Delete { get; }
         public void SetNext();
     }
 }

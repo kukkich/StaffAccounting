@@ -43,8 +43,8 @@ namespace StaffAccounting.Models.Company
         public abstract void JoinFromDatabase(CompanyContext context);
         public abstract bool IsMatch(RelationFilterOption option);
         public abstract Employee GetRisedEmployee();
-        protected abstract void UnlinkRelatedEntities();
 
+        protected abstract void UnlinkRelatedEntities();
         protected void FillRaised(Employee risedEmployee)
         {
             risedEmployee.Id = default;

@@ -11,12 +11,12 @@
 
         public RelationFilterOption(IQueryCollection query)
         {
-            DepartmentId = TryParseInt(query[nameof(DepartmentId)]);
-            ProjectId = TryParseInt(query[nameof(ProjectId)]);
-            RankId = TryParseInt(query[nameof(RankId)]);
-            DepartmentHeadId = TryParseInt(query[nameof(DepartmentHeadId)]);
-            DirectorId = TryParseInt(query[nameof(DirectorId)]);
-            ManagerId = TryParseInt(query[nameof(ManagerId)]);
+            DepartmentId = TryParseNullableToInt(query[nameof(DepartmentId)]);
+            ProjectId = TryParseNullableToInt(query[nameof(ProjectId)]);
+            RankId = TryParseNullableToInt(query[nameof(RankId)]);
+            DepartmentHeadId = TryParseNullableToInt(query[nameof(DepartmentHeadId)]);
+            DirectorId = TryParseNullableToInt(query[nameof(DirectorId)]);
+            ManagerId = TryParseNullableToInt(query[nameof(ManagerId)]);
         }
 
         public bool IsEmpty() =>
@@ -27,7 +27,7 @@
             && DirectorId == null
             && ManagerId == null;
 
-        private static int? TryParseInt(string value)
+        private static int? TryParseNullableToInt(string value)
         {
             if (value == null) return null;
             return int.Parse(value);

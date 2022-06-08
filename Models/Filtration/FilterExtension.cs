@@ -7,10 +7,5 @@
         {
             return collection.Where(item => item.IsMatch(option));
         }
-        public static ParallelQuery<T> Filter<T>(this ParallelQuery<T> collection, RelationFilterOption option)
-            where T : IFiltrable
-        {
-            return collection.Where(item => item.IsMatch(option));
-        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace StaffAccounting.Models.ViewModels.StyleProvider.Styles
 {
-    public interface IOptionStyle : IIterable<IOptionStyle>
+    public interface IOptionStyle
     {
         public string Details { get; }
         public string Edit { get; }
