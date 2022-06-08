@@ -13,7 +13,7 @@ namespace StaffAccounting.Models.ViewModels
         public Dictionary<string, string> QueryData { get; set; }
         public EmployeeNotationProvider NotationProvider { get; }
 
-        private const int _pageSize = 8;
+        private const int _pageSize = 10;
 
         public IndexViewModel (CompanyContext context, int page, IQueryCollection query, string requiredNotation)
         {

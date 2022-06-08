@@ -1,27 +1,51 @@
-﻿@{
+﻿@using StaffAccounting.Models.Company
+@using StaffAccounting.Models.ViewModels
+@using StaffAccounting.Models.ViewModels.StyleProvider
+@{
     ViewData["Title"] = "Должности";
+    var ranksTask = Model.GetItemsAsync();
 }
-@model IEnumerable<StaffAccounting.Models.Company.Rank>
+@model Pagination<Rank>
 
 <table class="table table-striped table-sm">
     <thead>
         <td>Имя</td>
         <td>Действия</td>
     </thead>
-    @foreach (var rank in Model)
+    @inject IOptionsStyleProvider optionsStyleProvider
+    @{
+        int i = 1;
+    }
+    @foreach (var rank in await ranksTask)
     {
         <tr>
             <td>@rank.Name</td>
             <td>
                 <div class="btn-group">
-                    <a asp-action="Details" asp-controller="Rank" asp-route-id="@rank.Id" class="btn btn-outline-info btn-sm">Подробнее</a>
-                    <a asp-action="Edit" asp-controller="Rank" asp-route-id="@rank.Id" class="btn btn-outline-secondary btn-sm">Изменить</a>
-                    <form asp-action="Delete" asp-controller="Rank" asp-route-id="@rank.Id">
-                        <input type="submit" value="Удалить" class="btn btn-outline-danger btn-sm" />
+                    <a asp-action="Details" asp-controller="Rank" asp-route-id="@rank.Id"
+                        class=@optionsStyleProvider.Details>
+                        Подробнее
+                    </a>
+                    <a asp-action="Edit" asp-controller="Rank" asp-route-id="@rank.Id"
+                        class =@optionsStyleProvider.Edit>
+                        Изменить
+                    </a>
+                    <form id=@($"deteleForm{i}") asp-action="Delete" asp-controller="Rank" asp-route-id="@rank.Id">
+                        @*
+                            such oddity is needed to apply the style. 
+                            Otherwise, the optionsStyleProvider.Delete style is not applied
+                        *@
+                        <a asp-action="" onclick=@($"document.getElementById('deteleForm{i}').submit(); return false;")
+                            class=@optionsStyleProvider.Delete>
+                            Удалить
+                        </a>
                     </form>
                 </div>
             </td>
         </tr>
+
+        i++;
+        optionsStyleProvider.SetNext();
     }
 </table>
 

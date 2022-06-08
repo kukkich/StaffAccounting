@@ -5,7 +5,6 @@
 @{
     ViewData["Title"] = "Home Page";
     var employeeTask = Model.Pagination.GetItemsAsync();
-    
 }
 
 <form method="get">
@@ -18,7 +17,7 @@
                 <option>@type</option>
             }
         </select>
-    
+
         <div class="button-confirm">
             <input type="submit" value="Отфильтровать" class="btn btn-outline-primary" />
         </div>
@@ -34,6 +33,9 @@
         <td>Действия</td>
     </thead>
     @inject IOptionsStyleProvider optionsStyleProvider
+    @{
+        int i = 1;
+    }
     @foreach (var employee in await employeeTask)
     {
         <tr>
@@ -51,12 +53,12 @@
                         class=@optionsStyleProvider.Edit>
                         Изменить
                     </a>
-                    <form id="deteleForm" asp-action="Delete" asp-controller="Employee" asp-route-id="@employee.Id">
+                    <form id=@($"deteleForm{i}") asp-action="Delete" asp-controller="Employee" asp-route-id="@employee.Id">
                         @*
                             such oddity is needed to apply the style. 
                             Otherwise, the optionsStyleProvider.Delete style is not applied
                         *@
-                        <a asp-action="" onclick="document.getElementById('deteleForm').submit(); return false;" 
+                        <a asp-action="" onclick=@($"document.getElementById('deteleForm{i}').submit(); return false;") 
                             class=@optionsStyleProvider.Delete>
                             Удалить
                         </a>
@@ -65,10 +67,12 @@
             </td>
         </tr>
 
+        i++;
         optionsStyleProvider.SetNext();
     }
 </table>
-<nav aria-label="Page navigation example">
+
+<nav>
     <ul class="pagination">
         @if (Model.Pagination.HasPreviousPage)
         {

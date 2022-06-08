@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StaffAccounting.Models.Company;
+using StaffAccounting.Models.ViewModels;
 
 namespace StaffAccounting.Controllers
 {
@@ -8,6 +9,7 @@ namespace StaffAccounting.Controllers
     {
         private readonly ILogger<EmployeeController> _logger;
         private readonly CompanyContext _companyContext;
+        private const int _pageSize = 10;
 
         public DepartmentController(ILogger<EmployeeController> logger, CompanyContext companyContext)
         {
@@ -15,9 +17,22 @@ namespace StaffAccounting.Controllers
             _companyContext = companyContext;
         }
 
-        public async Task<ActionResult> Index()
+        public IActionResult Index(int page = 1)
         {
-            return View(await _companyContext.Departments.ToListAsync());
+            if (page < 0)
+            {
+                return NotFound();
+            }
+            try
+            {
+                Pagination<Department> viewModel = new(_companyContext.Departments, _pageSize);
+                viewModel.PageNumber = page;
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         public async Task<IActionResult> Details(int? id)
