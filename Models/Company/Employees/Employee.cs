@@ -14,6 +14,7 @@ namespace StaffAccounting.Models.Company
         public string MiddleName { get; set; } = null!;
         [Required(ErrorMessage = "Введите фамилию")]
         public string LastName { get; set; } = null!;
+        [AdultAge]
         [Required(ErrorMessage = "Введите дату рождения")]
         public DateTime Birthday { get; set; }
         public Sex Sex { get; set; }

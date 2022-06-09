@@ -14,7 +14,6 @@ namespace StaffAccounting.Controllers
         private readonly CompanyContext _companyContext;
         private readonly EmployeeNotationFactory _factory;
         private readonly IViewProvider _viewProvider;
-        private const int _pageSize = 6;
 
         public EmployeeController(ILogger<EmployeeController> logger, CompanyContext companyContext)
         {
