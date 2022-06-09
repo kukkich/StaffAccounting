@@ -18,6 +18,9 @@ namespace StaffAccounting.Models.Company
         public CompanyContext(DbContextOptions<CompanyContext> options)
             : base(options)
         {
+            //Uncomment for an example of database, then 
+            //Then, after starting, stop the program and comment back
+
             //Database.EnsureDeleted();
             Database.EnsureCreated();
             //FillDataBase();
